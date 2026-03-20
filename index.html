@@ -3,163 +3,379 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Přehled nejnovějších AI aktualit z YouTube kanálu JulianGoldieSEO">
-    <title>YouTube AI Updates - JulianGoldieSEO</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>YouTube AI Updates – JulianGoldieSEO</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0f0f0f;
+            color: #f1f1f1;
+            line-height: 1.6;
+        }
+        header {
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            padding: 2rem;
+            text-align: center;
+            border-bottom: 3px solid #e94560;
+        }
+        header h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
+        header h1 span { color: #e94560; }
+        header p { color: #aaa; font-size: 0.9rem; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; }
+        .stats {
+            display: flex; gap: 1rem; justify-content: center;
+            margin-bottom: 2rem; flex-wrap: wrap;
+        }
+        .stat {
+            background: #1a1a2e; padding: 0.8rem 1.5rem;
+            border-radius: 8px; border: 1px solid #333;
+        }
+        .stat strong { color: #e94560; }
+        .videos {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+        .video-card {
+            background: #1a1a2e; border-radius: 12px;
+            overflow: hidden; border: 1px solid #222;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .video-card:hover { transform: translateY(-4px); border-color: #e94560; }
+        .video-thumb { position: relative; display: block; }
+        .video-thumb img {
+            width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block;
+        }
+        .duration {
+            position: absolute; bottom: 8px; right: 8px;
+            background: rgba(0,0,0,0.85); color: #fff;
+            padding: 2px 6px; border-radius: 4px;
+            font-size: 0.8rem; font-weight: 600;
+        }
+        .video-info { padding: 1rem; }
+        .video-info h2 { font-size: 1rem; margin-bottom: 0.3rem; }
+        .video-info h2 a { color: #f1f1f1; text-decoration: none; }
+        .video-info h2 a:hover { color: #e94560; }
+        .video-info time {
+            color: #888; font-size: 0.8rem;
+            display: block; margin-bottom: 0.5rem;
+        }
+        .summary { font-size: 0.85rem; color: #ccc; line-height: 1.5; }
+        footer {
+            text-align: center; padding: 2rem;
+            color: #555; font-size: 0.8rem; border-top: 1px solid #222;
+        }
+        @media (max-width: 768px) {
+            .videos { grid-template-columns: 1fr; }
+            header h1 { font-size: 1.3rem; }
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>📺 Nejnovější AI aktuality z kanálu JulianGoldieSEO</h1>
-        <p>Automaticky aktualizováno každý den v 7:00 ráno | Seřazeno od nejnovějšího</p>
+        <h1>📺 <span>YouTube AI Updates</span> – JulianGoldieSEO</h1>
+        <p>Nejnovější AI novinky a návody | Aktualizováno 2026-03-20 21:43 | Seřazeno od nejnovějšího</p>
     </header>
-    <main>
-        <section class="videos">
-            <!-- Video 1: oeUOGBJZdl0 -->
+    <div class="container">
+        <div class="stats">
+            <div class="stat">📹 <strong>24</strong> videí za posledních 1 dní</div>
+            <div class="stat">🔄 Aktualizace každý den v 7:00</div>
+            <div class="stat">🤖 Shrnutí: Gemini 3.1 Flash Lite</div>
+        </div>
+        <div class="videos">
+
             <article class="video-card">
-                <a href="https://www.youtube.com/watch?v=oeUOGBJZdl0" class="video-link" target="_blank">
-                    <img src="https://img.youtube.com/vi/oeUOGBJZdl0/0.jpg" alt="Build Anything with Nemotron 3 Here's How!" class="thumbnail">
+                <a href="https://www.youtube.com/watch?v=dxbmYk-nmgQ" class="video-thumb" target="_blank">
+                    <img src="https://img.youtube.com/vi/dxbmYk-nmgQ/hqdefault.jpg" alt="OpenClaw + Xiaomi’s MiMo-V2-Pro (FREE!)" loading="lazy">
+                    <span class="duration">8:19</span>
                 </a>
-                <div class="video-content">
-                    <h2><a href="https://www.youtube.com/watch?v=oeUOGBJZdl0" target="_blank">Build Anything with Nemotron 3 Here's How!</a></h2>
-                    <p class="duration">⏱ 8:14</p>
-                    <p class="published">📅 20.03.2026</p>
-                    <p>Nvidia uvolnila model <strong>Nemotron 3 Super</strong> s <strong>1 milion token kontextového okna</strong> – dokáže pojmout celou firemní dokumentaci, e‑maily, zdrojový kód a dokonce i komplexní struktury jako SLB (Service Load Balancer) v jednom promptu. Model je <strong>2,2× rychlejší</strong> než srovnatelné komerční modely a je <strong>plně otevřený</strong> (váhy jsou k dispozici zdarma). Praktický příklad: nahrajete celý kodový základ projektu a zeptáte se na jeho architekturu – AI odpoví bez ztráty kontextu.</p>
+                <div class="video-info">
+                    <h2><a href="https://www.youtube.com/watch?v=dxbmYk-nmgQ" target="_blank">OpenClaw + Xiaomi’s MiMo-V2-Pro (FREE!)</a></h2>
+                    <time datetime="2026-03-20">📅 2026-03-20</time>
+                    <p class="summary">Xiaomi vydalo nový AI model MiMo-V2-Pro, který disponuje bilionem parametrů a kontextovým oknem o velikosti 1 milionu tokenů. Tento model exceluje v programování, kde překonává Claude Sonic 4.6, a v agentních úlohách se svými schopnostmi blíží modelu Claude Opus. Nástroje OpenClaw a KiloClaw nyní umožňují bezplatný přístup k tomuto modelu, přičemž KiloClaw nabízí snadné nastavení v cloudu během jedné minuty. MiMo-V2-Pro byl původně testován pod kódovým označením „Hunter Alpha“ a aktuálně dosahuje špičkových výsledků v benchmarku pro agentní AI systémy.</p>
                 </div>
             </article>
 
-            <!-- Video 2: vabRab9F0w4 -->
             <article class="video-card">
-                <a href="https://www.youtube.com/watch?v=vabRab9F0w4" class="video-link" target="_blank">
-                    <img src="https://img.youtube.com/vi/vabRab9F0w4/0.jpg" alt="Nvidia's New NemoClaw + OpenClaw Update Free!" class="thumbnail">
+                <a href="https://www.youtube.com/watch?v=9Peip22rnLM" class="video-thumb" target="_blank">
+                    <img src="https://img.youtube.com/vi/9Peip22rnLM/hqdefault.jpg" alt="NEW Chinese Xiaomi AI MiMo-V2-Pro" loading="lazy">
+                    <span class="duration">9:58</span>
                 </a>
-                <div class="video-content">
-                    <h2><a href="https://www.youtube.com/watch?v=vabRab9F0w4" target="_blank">Nvidia's New NemoClaw + OpenClaw Update Free!</a></h2>
-                    <p class="duration">⏱ 1:00</p>
-                    <p class="published">📅 19.03.2026</p>
-                    <p>Nvidia představila <strong>NemoClaw</strong>, nový nástroj pro práci s AI agenty, který je zcela zdarma a integruje se s OpenClaw. Umožňuje rychlé nasazení AI agentů pro automatizaci úkolů jako generování kódu, analýza dat nebo práce s e-maily bez nutnosti placených licencí. Video ukazuje základní nastavení a první kroky k vytvoření vlastního AI workflow.</p>
+                <div class="video-info">
+                    <h2><a href="https://www.youtube.com/watch?v=9Peip22rnLM" target="_blank">NEW Chinese Xiaomi AI MiMo-V2-Pro</a></h2>
+                    <time datetime="2026-03-20">📅 2026-03-20</time>
+                    <p class="summary">Xiaomi představilo nový AI model MiMo-V2-Pro (dříve známý jako „Hunter Alpha“), který se nečekaně stal jedničkou na platformě OpenRouter a překonal i špičkové modely jako Claude 3.5 Sonnet v kódování. Tento model je specificky navržen pro autonomní AI agenty, kteří dokáží samostatně vykonávat komplexní úkoly, jako je tvorba webových stránek nebo správa víceúrovňových pracovních postupů. Díky kontextovému oknu o velikosti 1 milionu tokenů zvládne zpracovat rozsáhlá firemní data a aktuálně je dostupný zdarma prostřednictvím platforem OpenRouter a Kilo Code.</p>
                 </div>
             </article>
 
-            <!-- Video 3: t700StIhtZo -->
             <article class="video-card">
-                <a href="https://www.youtube.com/watch?v=t700StIhtZo" class="video-link" target="_blank">
-                    <img src="https://img.youtube.com/vi/t700StIhtZo/0.jpg" alt="Nvidia's New FREE NemoClaw + OpenClaw Update!" class="thumbnail">
+                <a href="https://www.youtube.com/watch?v=PrHBaNc7g9U" class="video-thumb" target="_blank">
+                    <img src="https://img.youtube.com/vi/PrHBaNc7g9U/hqdefault.jpg" alt="New FREE Google AI Studio + Antigravity Update" loading="lazy">
+                    <span class="duration">10:48</span>
                 </a>
-                <div class="video-content">
-                    <h2><a href="https://www.youtube.com/watch?v=t700StIhtZo" target="_blank">Nvidia's New FREE NemoClaw + OpenClaw Update!</a></h2>
-                    <p class="duration">⏱ 2:00</p>
-                    <p class="published">📅 18.03.2026</p>
-                    <p>Podrobný přehled o tom, jak <strong>NemoClaw</strong> funguje, jaké jsou jeho výhody a jak jej lze kombinovat s OpenClaw pro tvorbu automatizovaných workflow. Ukázky použití v reálném scénáři: automatické generování reportů z databází, odesílání personalizovaných e‑mailů a sledování výkonu kampaní v reálném čase.</p>
+                <div class="video-info">
+                    <h2><a href="https://www.youtube.com/watch?v=PrHBaNc7g9U" target="_blank">New FREE Google AI Studio + Antigravity Update</a></h2>
+                    <time datetime="2026-03-20">📅 2026-03-20</time>
+                    <p class="summary">Google AI Studio představilo zásadní aktualizaci, která umožňuje komukoliv vytvořit plně funkční webovou aplikaci pouze na základě jednoduchého textového zadání. Díky integraci „anti-gravity“ kódovacího agenta a backendové platformy Firebase systém automaticky zajistí uživatelské přihlašování, databázi i živé funkce bez nutnosti psát kód. Celý proces probíhá přímo v prohlížeči a je dostupný zdarma, což zjednodušuje vývoj aplikací i pro naprosté laiky.</p>
                 </div>
             </article>
 
-            <!-- Video 4: h2SS9zQp2lo -->
             <article class="video-card">
-                <a href="https://www.youtube.com/watch?v=h2SS9zQp2lo" class="video-link" target="_blank">
-                    <img src="https://img.youtube.com/vi/h2SS9zQp2lo/0.jpg" alt="New FREE Google Personal Intelligence Update!" class="thumbnail">
+                <a href="https://www.youtube.com/watch?v=W4NvEYOWdWY" class="video-thumb" target="_blank">
+                    <img src="https://img.youtube.com/vi/W4NvEYOWdWY/hqdefault.jpg" alt="Claude Code Channels DESTROYS OpenClaw" loading="lazy">
+                    <span class="duration">11:37</span>
                 </a>
-                <div class="video-content">
-                    <h2><a href="https://www.youtube.com/watch?v=h2SS9zQp2lo" target="_blank">New FREE Google Personal Intelligence Update!</a></h2>
-                    <p class="duration">⏱ 3:30</p>
-                    <p class="published">📅 18.03.2026</p>
-                    <p>Google vydala aktualizi své <strong>osobní inteligence AI</strong>, která zlepšuje porozumění kontextu v e-mailech, dokumentech a kalendáři. Umožňuje např. automatické vytváření souhrnu schůzek, navrhování odpovědí na základě předchozí komunikace a inteligentní připomínky založené na vašich návycích. Video ukazuje praktické příklady použití v Gmailu a Google Calendar.</p>
+                <div class="video-info">
+                    <h2><a href="https://www.youtube.com/watch?v=W4NvEYOWdWY" target="_blank">Claude Code Channels DESTROYS OpenClaw</a></h2>
+                    <time datetime="2026-03-20">📅 2026-03-20</time>
+                    <p class="summary">Nová aktualizace „Channels“ pro Claude Code umožňuje ovládat AI agenta vzdáleně prostřednictvím aplikací Telegram nebo Discord, čímž překonává konkurenční nástroj OpenClaw. Tato funkce odstraňuje nutnost být fyzicky u počítače, protože Claude nyní přijímá úkoly a zasílá zpětnou vazbu přímo do vašeho telefonu. K aktivaci vyžaduje Claude Code verze 2.1 nebo vyšší a propojení přes API boty, což uživatelům dává možnost spravovat kód a soubory odkudkoliv. Celé nastavení lze díky podrobné dokumentaci na GitHubu zprovoznit během deseti minut.</p>
                 </div>
             </article>
 
-            <!-- Video 5: el5eCuaAIY0 -->
             <article class="video-card">
-                <a href="https://www.youtube.com/watch?v=el5eCuaAIY0" class="video-link" target="_blank">
-                    <img src="https://img.youtube.com/vi/el5eCuaAIY0/0.jpg" alt="NEW Google AI Update is INSANE! 🤯" class="thumbnail">
+                <a href="https://www.youtube.com/watch?v=0XzNuUJ8YCk" class="video-thumb" target="_blank">
+                    <img src="https://img.youtube.com/vi/0XzNuUJ8YCk/hqdefault.jpg" alt="NEW NVIDIA + Adobe AI Update is INSANE! 🔥" loading="lazy">
+                    <span class="duration">8:08</span>
                 </a>
-                <div class="video-content">
-                    <h2><a href="https://www.youtube.com/watch?v=el5eCuaAIY0" target="_blank">NEW Google AI Update is INSANE! 🤯</a></h2>
-                    <p class="duration">⏱ 4:20</p>
-                    <p class="published">📅 18.03.2026</p>
-                    <p>Google představilo řadu nových AI funkcí napříč svými produkty (Workspace, Maps, Cloud). Mezi highlights patří <strong>AI navigace v Maps</strong> s reálnými aktualizacemi provozu, <strong>generování obsahu v Docs pomocí Gemini</strong> (např. automatické vytváření prezentací z podkladů) a <strong>pokročilá analýza dat v Sheets</strong> s předpověďmi a trendy. Video také zmiňuje bezpečnostní prvky a kontrolu nad daty.</p>
+                <div class="video-info">
+                    <h2><a href="https://www.youtube.com/watch?v=0XzNuUJ8YCk" target="_blank">NEW NVIDIA + Adobe AI Update is INSANE! 🔥</a></h2>
+                    <time datetime="2026-03-20">📅 2026-03-20</time>
+                    <p class="summary">Nvidia a Adobe spojily síly v novém systému, který propojuje kreativní nástroje jako Photoshop a Premiere s marketingovou platformou Adobe Experience do jednoho celku poháněného GPU od Nvidie. Klíčovou novinkou jsou vylepšené modely Firefly pro profesionální tvorbu a autonomní AI agenti, kteří dokážou samostatně plánovat, vytvářet, testovat a optimalizovat celé marketingové kampaně. Systém navíc využívá platformu Nvidia Omniverse k vytváření digitálních dvojčat, což značkám umožňuje testovat reklamy ve virtuálním prostředí ještě před jejich ostrým spuštěním. Tato integrace mění AI z pouhého pomocného nástroje na komplexní systém schopný řídit celý marketingový proces bez nutnosti lidského týmu.</p>
                 </div>
             </article>
 
-            <!-- Video 6: wsSh5zlIQ4s -->
             <article class="video-card">
-                <a href="https://www.youtube.com/watch?v=wsSh5zlIQ4s" class="video-link" target="_blank">
-                    <img src="https://img.youtube.com/vi/wsSh5zlIQ4s/0.jpg" alt="NEW Hunter Alpha is INSANE! (FREE!) 🤯" class="thumbnail">
+                <a href="https://www.youtube.com/watch?v=g_xXfPHfFuE" class="video-thumb" target="_blank">
+                    <img src="https://img.youtube.com/vi/g_xXfPHfFuE/hqdefault.jpg" alt="Claude Code FULL COURSE 3 Hours — (Build &amp; Automate Anything)" loading="lazy">
+                    <span class="duration">3:07:14</span>
                 </a>
-                <div class="video-content">
-                    <h2><a href="https://www.youtube.com/watch?v=wsSh5zlIQ4s" target="_blank">NEW Hunter Alpha is INSANE! (FREE!) 🤯</a></h2>
-                    <p class="duration">⏱ 5:10</p>
-                    <p class="published">📅 17.03.2026</p>
-                    <p><strong>Hunter Alpha</strong> je nový bezplatný model AI od Xiaomi, který konkurovat uzavřeným modelům jako GPT‑4. Nabízí vysokou výkonnost při nízké spotřebě energie a je optimalizován pro běh na lokálních zařízeních. Video ukazuje srovnání s jinými otevřenými modely a demonstraci úloh jako tvorba textu, překlad a jednoduché uvažování.</p>
+                <div class="video-info">
+                    <h2><a href="https://www.youtube.com/watch?v=g_xXfPHfFuE" target="_blank">Claude Code FULL COURSE 3 Hours — (Build &amp; Automate Anything)</a></h2>
+                    <time datetime="2026-03-20">📅 2026-03-20</time>
+                    <p class="summary">Claude Code od Anthropicu je výkonný nástroj pro automatizaci a vývoj, který díky své přístupnosti nevyžaduje předchozí programátorské zkušenosti. Mezi klíčové novinky patří hlasové ovládání (příkaz `/voice`), které umožňuje psát kód pouhým mluvením, a pokročilá AI revize kódu využívající více agentů pro automatické hledání chyb a integraci s GitHubem. Systém nově obsahuje i bezpečnostní nástroje pro detekci zranitelností, což z něj činí komplexního asistenta pro tvorbu aplikací a automatizaci úkolů přímo ve vašem počítači.</p>
                 </div>
             </article>
 
-            <!-- Video 7: Ziyz4ZKLVk0 -->
             <article class="video-card">
-                <a href="https://www.youtube.com/watch?v=Ziyz4ZKLVk0" class="video-link" target="_blank">
-                    <img src="https://img.youtube.com/vi/Ziyz4ZKLVk0/0.jpg" alt="NEW OpenClaw AI Browser Agent: Automate ANYTHING?" class="thumbnail">
+                <a href="https://www.youtube.com/watch?v=_ByLmpnhpas" class="video-thumb" target="_blank">
+                    <img src="https://img.youtube.com/vi/_ByLmpnhpas/hqdefault.jpg" alt="New OpenAI Codex Update is INSANE!" loading="lazy">
+                    <span class="duration">8:03</span>
                 </a>
-                <div class="video-content">
-                    <h2><a href="https://www.youtube.com/watch?v=Ziyz4ZKLVk0" target="_blank">NEW OpenClaw AI Browser Agent: Automate ANYTHING?</a></h2>
-                    <p class="duration">⏱ 3:45</p>
-                    <p class="published">📅 17.03.2026</p>
-                    <p>OpenClaw představil nového <strong>AI agenta schopného ovládat prohlížeč</strong>: automatické vyplňování formulářů, procházení webů, extrakce dat a provádění složitých úloh jako rezervace letenek, nákupy v e‑shopech nebo sběr dat z konkurenčních stránek – vše bez lidského zásahu. Agent pracuje na pozadí, můžete mu zadat úkol prostřednictvím příkazové řádky nebo rozhraní a dostat výsledek ve formátu JSON nebo CSV.</p>
+                <div class="video-info">
+                    <h2><a href="https://www.youtube.com/watch?v=_ByLmpnhpas" target="_blank">New OpenAI Codex Update is INSANE!</a></h2>
+                    <time datetime="2026-03-20">📅 2026-03-20</time>
+                    <p class="summary">OpenAI představilo zásadní aktualizaci pro svůj kódovací nástroj Codex, který nyní umožňuje hlavnímu agentovi vytvářet podřízené „sub-agenty“. Tento systém funguje jako manažerský tým, kde hlavní agent deleguje specifické úkoly (např. backend, frontend či testování) na menší agenty pracující paralelně v izolovaných prostředích. Díky tomu se efektivně řeší problém s omezenou kapacitou kontextového okna, protože každý sub-agent disponuje vlastní pamětí a soustředí se pouze na svou část projektu. Tato inovace umožňuje automatizovat komplexní vývojové procesy, jako je refaktorizace kódu nebo rozsáhlé ladění, v řádu zlomku původního času.</p>
                 </div>
             </article>
 
-            <!-- Video 8: 2MGN8OlDgXE -->
             <article class="video-card">
-                <a href="https://www.youtube.com/watch?v=2MGN8OlDgXE" class="video-link" target="_blank">
-                    <img src="https://img.youtube.com/vi/2MGN8OlDgXE/0.jpg" alt="OpenClaw 3.12 IS INSANE, Here's Why" class="thumbnail">
+                <a href="https://www.youtube.com/watch?v=oeUOGBJZdl0" class="video-thumb" target="_blank">
+                    <img src="https://img.youtube.com/vi/oeUOGBJZdl0/hqdefault.jpg" alt="Build Anything with Nemotron 3 Here&#39;s How!" loading="lazy">
+                    <span class="duration">8:14</span>
                 </a>
-                <div class="video-content">
-                    <h2><a href="https://www.youtube.com/watch?v=2MGN8OlDgXE" target="_blank">OpenClaw 3.12 IS INSANE, Here's Why</a></h2>
-                    <p class="duration">⏱ 4:00</p>
-                    <p class="published">📅 16.03.2026</p>
-                    <p>Přehled novinek ve verzi <strong>3.12 OpenClaw</strong>: vylepšená správa úkolů s podporou priorit a závislostí, lepší integrace s externími službami (Slack, Discord, GitHub, Google Workspace), nový systém notifikací přes webhooky a e‑mail, optimalizace spotřeby paměti a rychlejší spouštění agentů. Video také zmiňuje opravy chyb a zpětnou vazbu od komunity.</p>
+                <div class="video-info">
+                    <h2><a href="https://www.youtube.com/watch?v=oeUOGBJZdl0" target="_blank">Build Anything with Nemotron 3 Here&#39;s How!</a></h2>
+                    <time datetime="2026-03-20">📅 2026-03-20</time>
+                    <p class="summary">Nvidia představila nový open-weight model Nemotron-3 Super, který je díky architektuře Mixture of Experts a hybridnímu systému Mamba Transformer optimalizován pro komplexní AI agenty. Klíčovou inovací je obrovské kontextové okno o velikosti 1 milionu tokenů, které umožňuje modelu pracovat s rozsáhlými databázemi dokumentů či kódem v rámci jediného promptu. Díky technologii multi-token predikce dosahuje model 2,2× vyšší rychlosti než srovnatelné alternativy při zachování vysoké efektivity. Tento nástroj je určen pro budování pokročilých automatizačních systémů, které vyžadují dlouhodobou paměť a schopnost samostatného plánování úkolů.</p>
                 </div>
             </article>
 
-            <!-- Video 9: n1b5W0GyPZI -->
             <article class="video-card">
-                <a href="https://www.youtube.com/watch?v=n1b5W0GyPZI" class="video-link" target="_blank">
-                    <img src="https://img.youtube.com/vi/n1b5W0GyPZI/0.jpg" alt="NEW GenSpark Claw DESTROYS OpenClaw?" class="thumbnail">
+                <a href="https://www.youtube.com/watch?v=6mjnfAz5wlQ" class="video-thumb" target="_blank">
+                    <img src="https://img.youtube.com/vi/6mjnfAz5wlQ/hqdefault.jpg" alt="NEW Google AI Updates are INSANE! 🤯" loading="lazy">
+                    <span class="duration">8:31</span>
                 </a>
-                <div class="video-content">
-                    <h2><a href="https://www.youtube.com/watch?v=n1b5W0GyPZI" target="_blank">NEW GenSpark Claw DESTROYS OpenClaw?</a></h2>
-                    <p class="duration">⏱ 3:20</p>
-                    <p class="published">📅 15.03.2026</p>
-                    <p>Recenze nového nástroje <strong>GenSpark Claw</strong>, který tvrdí, že překonává OpenClaw v rychlosti nasazení AI agentů a nabízí lepší UI. Video porovnává oba systémy v kontextu automatizace marketingových kampaní: generování osobních e‑mailů, plánování příspěvků na sociálních sítích a sledování konverzí. Zatímco GenSpark Claw nabízí hezčí vizuální editor, OpenClaw zůstává flexibilnější díky otevřené architektuře a rozsáhlé knihovně integrací.</p>
+                <div class="video-info">
+                    <h2><a href="https://www.youtube.com/watch?v=6mjnfAz5wlQ" target="_blank">NEW Google AI Updates are INSANE! 🤯</a></h2>
+                    <time datetime="2026-03-20">📅 2026-03-20</time>
+                    <p class="summary">Google integroval model Gemini do celého ekosystému Google Workspace (Gmail, Docs, Sheets, Slides, Drive), čímž vytvořil komplexní automatizovaný pracovní systém pro analýzu dat a tvorbu obsahu. Výraznou novinkou je funkce „Ask Maps“, která umožňuje klást komplexní dotazy přímo v Google Mapách a získávat inteligentní odpovědi o místech, trasách či konkurenci na základě analýzy recenzí a reálných dat. Propojení těchto nástrojů umožňuje uživatelům efektivně přejít od vyhledávání informací v terénu až po finální zpracování strategií a prezentací bez nutnosti přepínat mezi aplikacemi. Tato aktualizace zásadně mění produktivitu tím, že eliminuje roztříštěnost práce a automatizuje rutinní úkoly během několika minut.</p>
                 </div>
             </article>
 
-            <!-- Video 10: JwVJo5kMsUk -->
             <article class="video-card">
-                <a href="https://www.youtube.com/watch?v=JwVJo5kMsUk" class="video-link" target="_blank">
-                    <img src="https://img.youtube.com/vi/JwVJo5kMsUk/0.jpg" alt="NEW Claude Skills 2.0 Is INSANE!" class="thumbnail">
+                <a href="https://www.youtube.com/watch?v=foXDDxSbZ7k" class="video-thumb" target="_blank">
+                    <img src="https://img.youtube.com/vi/foXDDxSbZ7k/hqdefault.jpg" alt="NEW Claude Code Update is INSANE!" loading="lazy">
+                    <span class="duration">9:30</span>
                 </a>
-                <div class="video-content">
-                    <h2><a href="https://www.youtube.com/watch?v=JwVJo5kMsUk" target="_blank">NEW Claude Skills 2.0 Is INSANE!</a></h2>
-                    <p class="duration">⏱ 5:00</p>
-                    <p class="published">📅 15.03.2026</p>
-                    <p>Anthropic aktualizovala Claude o nové dovednosti (<strong>Skills 2.0</strong>), které umožňují modelu lépe používat nástroje jako počítačový terminál, editor kódu nebo databázi bez nutnosti složitého promptování. Ukázky zahrnují automatické ladění kódu v Pythonu, generování SQL dotazů z přirozeného jazyka a vytvoření jednoduché webové aplikace pomocí pouze přirozených pokynů. Video také zmiňuje bezpečnostní omezení a možnost ladění v izolovaném prostředí.</p>
+                <div class="video-info">
+                    <h2><a href="https://www.youtube.com/watch?v=foXDDxSbZ7k" target="_blank">NEW Claude Code Update is INSANE!</a></h2>
+                    <time datetime="2026-03-20">📅 2026-03-20</time>
+                    <p class="summary">Nová aktualizace Claude Code přináší revoluční funkci vzdáleného ovládání, díky které můžete svého AI vývojáře spravovat přímo z mobilního telefonu, zatímco kód zůstává bezpečně uložen ve vašem počítači. Klíčovou novinkou je také režim „effort max“, který využívá hluboké uvažování modelu pro řešení komplexních programátorských úkolů. Tento nástroj běžící přímo v terminálu nyní umožňuje monitorovat dlouhotrvající procesy, schvalovat změny a zadávat instrukce odkudkoliv, čímž vás osvobozuje od nutnosti neustálého sezení u počítače.</p>
                 </div>
             </article>
 
-            <!-- Video 11: E7JNxiMIeYY -->
             <article class="video-card">
-                <a href="https://www.youtube.com/watch?v=E7JNxiMIeYY" class="video-link" target="_blank">
-                    <img src="https://img.youtube.com/vi/E7JNxiMIeYY/0.jpg" alt="New AntiGravity Update is INSANE! 🤯" class="thumbnail">
+                <a href="https://www.youtube.com/watch?v=SWIk9g6-zBM" class="video-thumb" target="_blank">
+                    <img src="https://img.youtube.com/vi/SWIk9g6-zBM/hqdefault.jpg" alt="NEW Manus AI Computer Update is INSANE! 🤯" loading="lazy">
+                    <span class="duration">8:05</span>
                 </a>
-                <div class="video-content">
-                    <h2><a href="https://www.youtube.com/watch?v=E7JNxiMIeYY" target="_blank">New AntiGravity Update is INSANE! 🤯</a></h2>
-                    <p class="duration">⏱ 4:50</p>
-                    <p class="published">📅 15.03.2026</p>
-                    <p>Aktualizace fyzikálního simulátoru <strong>AntiGravity</strong>, která přidává podporu pro simulaci gravitace v reálném čase, vylepšenou kolizní detekci a nové nástroje pro tvorbu interaktivních výukových scén ve vědě a inženýrství. Uživatelé mohou nyní simulovat pohyb planet, letů letadel nebo chování tekutin s vysokou přesností. Video také ukazuje připojení k VR headsetům pro pohlcující zážitek.</p>
+                <div class="video-info">
+                    <h2><a href="https://www.youtube.com/watch?v=SWIk9g6-zBM" target="_blank">NEW Manus AI Computer Update is INSANE! 🤯</a></h2>
+                    <time datetime="2026-03-19">📅 2026-03-19</time>
+                    <p class="summary">Nová aktualizace Manus AI přináší revoluční integraci s Google Workspace, díky které AI agent dokáže přímo ovládat Docs, Sheets, Slides, Drive, Gmail i Kalendář. Namísto pouhého generování textu nyní systém funguje jako „AI operátor“, který samostatně provádí úkoly, upravuje soubory a propojuje cloudové nástroje s lokálními daty na základě jediného příkazu. Díky využití rozhraní CLI odpadá nutnost složitého nastavování API nebo skriptování, což umožňuje automatizaci komplexních pracovních postupů bez nutnosti přepínání mezi kartami. Manus se tak mění z asistenta, který pouze radí, na výkonný nástroj, který za vás reálnou práci v aplikacích skutečně vykoná.</p>
                 </div>
             </article>
-        </section>
-    </main>
+
+            <article class="video-card">
+                <a href="https://www.youtube.com/watch?v=7Ju87DdiE0Y" class="video-thumb" target="_blank">
+                    <img src="https://img.youtube.com/vi/7Ju87DdiE0Y/hqdefault.jpg" alt="Minimax M 2.7 + OpenClaw + Ollama" loading="lazy">
+                    <span class="duration">7:25</span>
+                </a>
+                <div class="video-info">
+                    <h2><a href="https://www.youtube.com/watch?v=7Ju87DdiE0Y" target="_blank">Minimax M 2.7 + OpenClaw + Ollama</a></h2>
+                    <time datetime="2026-03-19">📅 2026-03-19</time>
+                    <p class="summary">Tento bezplatný AI stack kombinuje model Minimax M2.7, nástroj OpenClaw a platformu Ollama do výkonného autonomního agenta, který dokáže ovládat počítač a automatizovat úkoly 24/7. Model Minimax M2.7 je unikátní svou schopností sebereprodukce, kdy se podílel na vlastním tréninkovém procesu, zatímco OpenClaw slouží jako klíčové rozhraní pro ovládání aplikací typu WhatsApp či Telegram. Celý systém lze zprovoznit pomocí jednoduché instalace přes terminál, což umožňuje i jednotlivcům automatizovat rozsáhlé pracovní procesy bez nutnosti placených předplatných.</p>
+                </div>
+            </article>
+
+            <article class="video-card">
+                <a href="https://www.youtube.com/watch?v=etPbMbx7rP0" class="video-thumb" target="_blank">
+                    <img src="https://img.youtube.com/vi/etPbMbx7rP0/hqdefault.jpg" alt="Minimax 2.7: Self-Improving AI Super Agent is INSANE" loading="lazy">
+                    <span class="duration">8:20</span>
+                </a>
+                <div class="video-info">
+                    <h2><a href="https://www.youtube.com/watch?v=etPbMbx7rP0" target="_blank">Minimax 2.7: Self-Improving AI Super Agent is INSANE</a></h2>
+                    <time datetime="2026-03-19">📅 2026-03-19</time>
+                    <p class="summary">Nový model Minimax 2.7 přináší revoluční schopnost samoopravování, díky které AI agenti samostatně identifikují své chyby, přepisují kód a iterují úkoly, dokud nejsou úspěšně dokončeny. Tento nástroj eliminuje potřebu manuálního ladění či pokročilých programátorských znalostí a umožňuje uživatelům automatizovat komplexní procesy, jako je tvorba webových stránek, aplikací nebo správa úkolů. Díky frameworku „feedback loop engine“ se agenti při každém spuštění zlepšují, což z nich dělá efektivní nástroj pro automatizaci podnikání bez nutnosti neustálého dohledu.</p>
+                </div>
+            </article>
+
+            <article class="video-card">
+                <a href="https://www.youtube.com/watch?v=9t0axc6Z0aU" class="video-thumb" target="_blank">
+                    <img src="https://img.youtube.com/vi/9t0axc6Z0aU/hqdefault.jpg" alt="MaxClaw + M2.7 DESTROYS OpenClaw?" loading="lazy">
+                    <span class="duration">14:34</span>
+                </a>
+                <div class="video-info">
+                    <h2><a href="https://www.youtube.com/watch?v=9t0axc6Z0aU" target="_blank">MaxClaw + M2.7 DESTROYS OpenClaw?</a></h2>
+                    <time datetime="2026-03-19">📅 2026-03-19</time>
+                    <p class="summary">Nový model MiniMax M2.7 představuje revoluční „mozek“ integrovaný přímo do platformy MaxClaw, který díky samoučícímu se mechanismu a posílenému učení neustále vylepšuje své schopnosti. Zatímco OpenClaw funguje jako komplexní nástroj pro kutily, MaxClaw nabízí uživatelsky přívětivé řešení typu „plug-and-play“, které zprovozníte během několika sekund bez nutnosti technických znalostí. Systém disponuje přednastavenými dovednostmi, jako je tvorba videí, generování obrázků či automatizovaný sběr dat a tvorba denních reportů. Model M2.7 navíc vyniká schopností participovat na vlastním vývoji, čímž se výkonnostně vyrovná špičkovým modelům typu Claude Opus.</p>
+                </div>
+            </article>
+
+            <article class="video-card">
+                <a href="https://www.youtube.com/watch?v=akq6MNcVsHg" class="video-thumb" target="_blank">
+                    <img src="https://img.youtube.com/vi/akq6MNcVsHg/hqdefault.jpg" alt="Minimax 2.7: New Self Improving Chinese AI" loading="lazy">
+                    <span class="duration">29:13</span>
+                </a>
+                <div class="video-info">
+                    <h2><a href="https://www.youtube.com/watch?v=akq6MNcVsHg" target="_blank">Minimax 2.7: New Self Improving Chinese AI</a></h2>
+                    <time datetime="2026-03-19">📅 2026-03-19</time>
+                    <p class="summary">Čínská společnost MiniMax představila model M2.7, který představuje zásadní průlom díky schopnosti rekurzivního sebazlepšování. AI se podílela na vlastním vývoji z 30 až 50 %, přičemž automaticky optimalizovala své učební procesy, opravovala chyby a přepisovala instrukce v rámci 100 kol testování. Tento model dokáže samostatně spravovat své posilované učení a krátkodobou paměť, čímž překonává tradiční metody vývoje softwaru. Novinka je aktuálně dostupná zdarma a signalizuje posun od AI jako pouhého nástroje k systému, který aktivně vylepšuje svou vlastní architekturu.</p>
+                </div>
+            </article>
+
+            <article class="video-card">
+                <a href="https://www.youtube.com/watch?v=iVnXYSFU7XI" class="video-thumb" target="_blank">
+                    <img src="https://img.youtube.com/vi/iVnXYSFU7XI/hqdefault.jpg" alt="NEW Google Stitch Update is INSANE!" loading="lazy">
+                    <span class="duration">11:25</span>
+                </a>
+                <div class="video-info">
+                    <h2><a href="https://www.youtube.com/watch?v=iVnXYSFU7XI" target="_blank">NEW Google Stitch Update is INSANE!</a></h2>
+                    <time datetime="2026-03-19">📅 2026-03-19</time>
+                    <p class="summary">Google Stitch přináší revoluci ve vývoji softwaru díky konceptu „vibe coding“, který umožňuje vytvářet plně funkční aplikace a weby pouhým popisem v přirozeném jazyce. Nová aktualizace využívá model Gemini 3.1 Pro Thinking a přidává funkci Live Voice Mode, díky níž můžete design upravovat v reálném čase pomocí hlasové konverzace. Nástroj nyní nabízí možnost exportu kódu do Figmy či AI Studia a umožňuje okamžité nasazení hotových projektů bez nutnosti programování či designérských zkušeností.</p>
+                </div>
+            </article>
+
+            <article class="video-card">
+                <a href="https://www.youtube.com/watch?v=i4VRrRGTI-E" class="video-thumb" target="_blank">
+                    <img src="https://img.youtube.com/vi/i4VRrRGTI-E/hqdefault.jpg" alt="Minimax M.27 + ZoComputer: FREE Self-Improving AI!" loading="lazy">
+                    <span class="duration">12:43</span>
+                </a>
+                <div class="video-info">
+                    <h2><a href="https://www.youtube.com/watch?v=i4VRrRGTI-E" target="_blank">Minimax M.27 + ZoComputer: FREE Self-Improving AI!</a></h2>
+                    <time datetime="2026-03-19">📅 2026-03-19</time>
+                    <p class="summary">Nový model Minimax M.27 představuje průlom v oblasti umělé inteligence, protože se dokázal samostatně vylepšovat prostřednictvím více než 100 kol automatické optimalizace kódu bez lidského zásahu. Tento výkonný model, který svými schopnostmi konkuruje špičkám jako GPT nebo Opus, lze nyní zdarma využívat v rámci platformy Zo Computer. Zo Computer funguje jako osobní cloudový počítač běžící 24/7, který umožňuje snadno vytvářet aplikace, spravovat e-maily či plánovat schůzky pomocí jednoduchých textových příkazů. Uživatelé mají do konce března bezplatný přístup k modelům Minimax M.27 a Kim K 2.5 přímo v desktopové aplikaci Zo.</p>
+                </div>
+            </article>
+
+            <article class="video-card">
+                <a href="https://www.youtube.com/watch?v=INU5_XKGkQc" class="video-thumb" target="_blank">
+                    <img src="https://img.youtube.com/vi/INU5_XKGkQc/hqdefault.jpg" alt="Claude Cowork + NEW Dispatch DESTROYS OpenClaw?" loading="lazy">
+                    <span class="duration">11:06</span>
+                </a>
+                <div class="video-info">
+                    <h2><a href="https://www.youtube.com/watch?v=INU5_XKGkQc" target="_blank">Claude Cowork + NEW Dispatch DESTROYS OpenClaw?</a></h2>
+                    <time datetime="2026-03-19">📅 2026-03-19</time>
+                    <p class="summary">Nová funkce Dispatch od Claude umožňuje ovládat počítač vzdáleně přímo z mobilního telefonu bez nutnosti složitého nastavování či programování. Tento nástroj funguje jako AI agent, který dokáže spouštět úkoly v rámci Claude Cowork i Claude Code, zatímco nejste u svého pracovního stolu. K zprovoznění stačí nainstalovat Claude desktop, naskenovat QR kód a mít aktivní předplatné, přičemž systém následně slouží jako komplexní automatizační engine pro vaši práci.</p>
+                </div>
+            </article>
+
+            <article class="video-card">
+                <a href="https://www.youtube.com/watch?v=2qqUfQWi52E" class="video-thumb" target="_blank">
+                    <img src="https://img.youtube.com/vi/2qqUfQWi52E/hqdefault.jpg" alt="New Chinese AI Agent DESTROYS NotebookLM?" loading="lazy">
+                    <span class="duration">8:14</span>
+                </a>
+                <div class="video-info">
+                    <h2><a href="https://www.youtube.com/watch?v=2qqUfQWi52E" target="_blank">New Chinese AI Agent DESTROYS NotebookLM?</a></h2>
+                    <time datetime="2026-03-19">📅 2026-03-19</time>
+                    <p class="summary">Univerzita Tsinghua představila open-source projekt OpenMEch, který na základě PDF nebo zvoleného tématu vytvoří plně interaktivní virtuální učebnu. Systém využívá více AI agentů poháněných modely jako Gemini, kteří simulují učitele, diskutující spolužáky, interaktivní tabuli a průběžné kvízy. Na rozdíl od pasivních nástrojů typu NotebookLM tento systém aktivně zapojuje uživatele do výuky, což podle testů na 700 studentech výrazně zlepšuje studijní výsledky.</p>
+                </div>
+            </article>
+
+            <article class="video-card">
+                <a href="https://www.youtube.com/watch?v=hGPg3NlGPN4" class="video-thumb" target="_blank">
+                    <img src="https://img.youtube.com/vi/hGPg3NlGPN4/hqdefault.jpg" alt="OpenClaw + Gemini 3.1 Flash Lite is INSANE!" loading="lazy">
+                    <span class="duration">8:19</span>
+                </a>
+                <div class="video-info">
+                    <h2><a href="https://www.youtube.com/watch?v=hGPg3NlGPN4" target="_blank">OpenClaw + Gemini 3.1 Flash Lite is INSANE!</a></h2>
+                    <time datetime="2026-03-19">📅 2026-03-19</time>
+                    <p class="summary">Kombinace open-source agenta OpenClaw a nového modelu Gemini 3.1 Flash Lite umožňuje automatizovat komplexní úkoly 24/7 přímo na vašem počítači. OpenClaw nabízí přes 50 integrací (např. Slack, Discord, WhatsApp) a schopnost samostatně pracovat s kódem či webem, zatímco Gemini 3.1 Flash Lite přináší revoluční rychlost a efektivitu. Klíčovou inovací modelu je nastavitelná úroveň „myšlení“ (thinking levels), která umožňuje dynamicky vyvažovat rychlost a kvalitu výstupu podle náročnosti úkolu. Díky milionovému kontextovému oknu a vysokému výkonu je tento systém ideální pro škálovatelné nasazení digitálních agentů.</p>
+                </div>
+            </article>
+
+            <article class="video-card">
+                <a href="https://www.youtube.com/watch?v=t_AnG_wU4LY" class="video-thumb" target="_blank">
+                    <img src="https://img.youtube.com/vi/t_AnG_wU4LY/hqdefault.jpg" alt="NEW Perplexity AI Super Agent Platform is INSANE!" loading="lazy">
+                    <span class="duration">8:01</span>
+                </a>
+                <div class="video-info">
+                    <h2><a href="https://www.youtube.com/watch?v=t_AnG_wU4LY" target="_blank">NEW Perplexity AI Super Agent Platform is INSANE!</a></h2>
+                    <time datetime="2026-03-19">📅 2026-03-19</time>
+                    <p class="summary">Perplexity spustila novou platformu, která sjednocuje vývoj autonomních AI agentů pod jedno jediné API, čímž eliminuje nutnost propojovat několik různých služeb. Klíčovou novinkou je modelově agnostický přístup, umožňující kombinovat modely od OpenAI, Anthropicu, Googlu či Nvidie v rámci jednoho workflow. Platforma zahrnuje výkonné nástroje pro vyhledávání v reálném čase, pokročilé embedding modely pro práci s daty a připravovaný sandbox pro bezpečné spouštění kódu. Tento systém umožňuje agentům samostatně vyhledávat, analyzovat informace a plnit komplexní úkoly bez nutnosti manuálního přepínání mezi nástroji.</p>
+                </div>
+            </article>
+
+            <article class="video-card">
+                <a href="https://www.youtube.com/watch?v=SBQMfMgmzbA" class="video-thumb" target="_blank">
+                    <img src="https://img.youtube.com/vi/SBQMfMgmzbA/hqdefault.jpg" alt="GLM 5 Turbo + Google Gemini is INSANE! 🤯" loading="lazy">
+                    <span class="duration">8:51</span>
+                </a>
+                <div class="video-info">
+                    <h2><a href="https://www.youtube.com/watch?v=SBQMfMgmzbA" target="_blank">GLM 5 Turbo + Google Gemini is INSANE! 🤯</a></h2>
+                    <time datetime="2026-03-19">📅 2026-03-19</time>
+                    <p class="summary">Propojení modelů GLM-5 Turbo a Google Gemini vytváří vysoce efektivní „AI operační systém“, který kombinuje strategické plánování s rychlou exekucí. Zatímco Google Gemini slouží jako multimodální stratég s hlubokým kontextem a integrací do Google Workspace, GLM-5 Turbo funguje jako výkonný exekuční motor optimalizovaný pro automatizaci a rychlé plnění úkolů. Společným využitím těchto nástrojů lze automatizovat komplexní pracovní postupy od výzkumu a tvorby obsahu až po technickou realizaci. Tento přístup umožňuje uživatelům přejít od izolovaného chatování k vytváření ucelených a vysoce produktivních automatizačních pipeline.</p>
+                </div>
+            </article>
+
+            <article class="video-card">
+                <a href="https://www.youtube.com/watch?v=JnRoO6hvAv4" class="video-thumb" target="_blank">
+                    <img src="https://img.youtube.com/vi/JnRoO6hvAv4/hqdefault.jpg" alt="Build Anything with GLM 5 Turbo! Here&#39;s How" loading="lazy">
+                    <span class="duration">8:41</span>
+                </a>
+                <div class="video-info">
+                    <h2><a href="https://www.youtube.com/watch?v=JnRoO6hvAv4" target="_blank">Build Anything with GLM 5 Turbo! Here&#39;s How</a></h2>
+                    <time datetime="2026-03-19">📅 2026-03-19</time>
+                    <p class="summary">Nový model GLM-5 Turbo je navržen přímo pro autonomní agenty, kterým umožňuje samostatně plánovat, psát kód, testovat a nasazovat aplikace. Díky architektuře „mixture of experts“ se 744 miliardami parametrů a kontextovým oknem 200 000 tokenů zvládne zpracovat celé databáze kódu či rozsáhlé dokumentace. Hlavní výhodou je výrazné navýšení limitů (až 1 600 promptů za 5 hodin) a vysoká rychlost, což z něj činí nákladově efektivní nástroj pro komplexní automatizaci úkolů bez přerušování práce.</p>
+                </div>
+            </article>
+
+            <article class="video-card">
+                <a href="https://www.youtube.com/watch?v=b3GdBQ642UU" class="video-thumb" target="_blank">
+                    <img src="https://img.youtube.com/vi/b3GdBQ642UU/hqdefault.jpg" alt="GLM 5 Turbo + Claude Opus 4.6 is INSANE! 🤯" loading="lazy">
+                    <span class="duration">8:02</span>
+                </a>
+                <div class="video-info">
+                    <h2><a href="https://www.youtube.com/watch?v=b3GdBQ642UU" target="_blank">GLM 5 Turbo + Claude Opus 4.6 is INSANE! 🤯</a></h2>
+                    <time datetime="2026-03-19">📅 2026-03-19</time>
+                    <p class="summary">Klíčem k efektivnímu využívání AI není používání jednoho nástroje, ale vytvoření automatizovaného týmu, kde modely spolupracují v uzavřeném produkčním cyklu. Claude Opus funguje jako strategický mozek pro komplexní analýzu a plánování, zatímco GLM 5 Turbo slouží jako výkonný „builder“ specializovaný na kódování, automatizaci a technickou realizaci. Propojením těchto dvou modelů vzniká systém, který samostatně navrhuje, buduje, reviduje a následně spouští celé pracovní procesy. Tento přístup umožňuje podnikatelům a týmům přejít od prostého zadávání promptů k řízení plně funkčních automatizovaných systémů.</p>
+                </div>
+            </article>
+
+        </div>
+    </div>
     <footer>
-        <p>Stránka generována OpenClaw AI agentem. Data z YouTube kanálu JulianGoldieSEO.</p>
+        <p>Automaticky generováno OpenClaw agentem | Data: yt-dlp | Shrnutí: Google Gemini 3.1 Flash Lite</p>
     </footer>
 </body>
 </html>
