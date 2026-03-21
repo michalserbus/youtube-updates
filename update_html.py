@@ -45,8 +45,8 @@ for v in videos:
     duration = format_duration(v["duration"])
     
     # Generate summary text (placeholder for now)
-    brief_summary = "Video o hlavních novinkách v AI a technologiích. Klikněte pro zobrazení podrobností."
-    detailed_summary = "V tomto videu se dozvíte o nejnovějších AI novinkách. Video obsahuje informace o nových modelech, nástrojích a technologiích."
+    brief_summary = "Video o hlavních novinkách v AI a technologiích."
+    detailed_summary = "V tomto videu se dozvíte o nejnovějších AI novinkách. Video obsahuje informace o nových modelech, nástrojích a technologiích. Obsah je generován AI a zahrnuje shrnutí klíčových bodů z videa."
     
     # Age calculation (placeholder - in real app would use timestamp)
     age_text = formatted_date
