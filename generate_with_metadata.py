@@ -53,7 +53,7 @@ html = f'''<!DOCTYPE html>
 <body>
     <div class="header">
         <h1>🎬 AI Video Updates</h1>
-        <p>Kanal: <span class="badge">JulianGoldieSEO</span> | Posledních 7 dní | {len(videos)} videí</p>
+        <p>Kanal: <span class="badge">JulianGoldieSEO</span> | Posledních 24 hodin | {len(videos)} videí</p>
     </div>
     
     <div class="video-grid">

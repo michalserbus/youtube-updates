@@ -1,0 +1,575 @@
+#!/usr/bin/env python3
+"""
+YouTube AI Updates Generator v2
+- Fetches videos from @JulianGoldieSEO via yt-dlp
+- Downloads subtitles and caches them
+- Uses Gemini 3.1 Flash Lite for BOTH brief + detailed summaries
+- Generates static HTML with expandable detail sections
+- Commits and pushes to GitHub
+"""
+
+import os
+import sys
+import subprocess
+import json
+import re
+import glob
+import shutil
+import hashlib
+import requests
+from datetime import datetime, timedelta
+from pathlib import Path
+
+# === CONFIG ===
+GEMINI_URL = os.environ.get("GEMINI_URL", "http://127.0.0.1:4000/v1/chat/completions")
+GEMINI_MODEL = "gemini-3.1-flash-lite-preview"
+YOUTUBE_CHANNEL = "https://www.youtube.com/@JulianGoldieSEO/videos"
+REPO_DIR = os.path.dirname(os.path.abspath(__file__))
+DAYS_BACK = int(os.environ.get("DAYS_BACK", "1"))
+MAX_VIDEOS = int(os.environ.get("MAX_VIDEOS", "150"))
+SUBTITLE_LANG = "en"
+CACHE_DIR = os.path.join(REPO_DIR, ".cache", "subtitles")
+MAX_SUBTITLE_CHARS = 4000
+DATE_CUTOFF = (datetime.now() - timedelta(days=DAYS_BACK)).strftime("%Y%m%d")
+
+# Only re-fetch subtitles if cache is older than this (hours)
+CACHE_MAX_AGE_HOURS = 24
+
+def log(msg):
+    print(f"[{datetime.now().strftime('%H:%M:%S')}] {msg}", flush=True)
+
+def run_cmd(cmd, timeout=120):
+    try:
+        result = subprocess.run(cmd, shell=True, capture_output=True, text=True, timeout=timeout)
+        return result.stdout.strip(), result.stderr.strip(), result.returncode
+    except subprocess.TimeoutExpired:
+        return "", "Timeout", 1
+
+def format_duration(seconds):
+    if not seconds:
+        return "N/A"
+    seconds = int(seconds)
+    h = seconds // 3600
+    m = (seconds % 3600) // 60
+    s = seconds % 60
+    if h > 0:
+        return f"{h}:{m:02d}:{s:02d}"
+    return f"{m}:{s:02d}"
+
+def format_relative_age(timestamp, upload_date):
+    if timestamp:
+        diff = datetime.now().timestamp() - timestamp
+        if diff < 3600:
+            mins = max(1, int(diff / 60))
+            return f"před {mins} minutou" if mins == 1 else f"před {mins} minutami"
+        elif diff < 86400:
+            hours = int(diff / 3600)
+            return "před hodinou" if hours == 1 else f"před {hours} hodinami"
+        elif diff < 2 * 86400:
+            return "včera"
+        elif diff < 7 * 86400:
+            days = int(diff / 86400)
+            return f"před {days} dny"
+    if upload_date and len(upload_date) == 8:
+        return f"{upload_date[:4]}-{upload_date[4:6]}-{upload_date[6:]}"
+    return upload_date or "neznámé datum"
+
+def escape_html(text):
+    return (text
+        .replace("&", "&amp;")
+        .replace("<", "&lt;")
+        .replace(">", "&gt;")
+        .replace('"', "&quot;")
+        .replace("'", "&#39;")
+    )
+
+# ============================================================
+# STEP 1: Fetch videos
+# ============================================================
+def fetch_videos(days_back):
+    log(f"Fetching videos from last {days_back} days (cutoff: {DATE_CUTOFF})...")
+    
+    cmd = (
+        f'yt-dlp --playlist-end {MAX_VIDEOS} '
+        f'--skip-download '
+        f'--print "%(id)s|||%(title)s|||%(duration)s|||%(upload_date)s|||%(timestamp)s" '
+        f'"{YOUTUBE_CHANNEL}" 2>/dev/null'
+    )
+    
+    stdout, stderr, code = run_cmd(cmd, timeout=600)
+    if code != 0:
+        log(f"Error fetching videos: {stderr}")
+        return []
+    
+    videos = []
+    for line in stdout.strip().split("\n"):
+        if not line.strip() or "|||" not in line:
+            continue
+        parts = line.split("|||")
+        if len(parts) < 4:
+            continue
+
+        vid_id = parts[0].strip()
+        title = parts[1].strip()
+        duration_str = parts[2].strip()
+        upload_date = parts[3].strip()
+        timestamp_str = parts[4].strip() if len(parts) > 4 else ""
+
+        if upload_date and upload_date != "NA" and upload_date < DATE_CUTOFF:
+            break
+
+        duration = float(duration_str) if duration_str not in ("NA", "", "None") else 0
+        timestamp = float(timestamp_str) if timestamp_str not in ("NA", "", "None") else None
+
+        videos.append({
+            "id": vid_id,
+            "title": title,
+            "duration": duration,
+            "duration_formatted": format_duration(duration),
+            "upload_date": upload_date if upload_date != "NA" else "",
+            "timestamp": timestamp,
+            "url": f"https://www.youtube.com/watch?v={vid_id}",
+            "thumbnail": f"https://img.youtube.com/vi/{vid_id}/hqdefault.jpg",
+            "brief_summary": "",
+            "detailed_summary": ""
+        })
+    
+    log(f"Found {len(videos)} videos from last {days_back} days")
+    return videos
+
+# ============================================================
+# STEP 2: Download subtitles with caching
+# ============================================================
+def get_cache_path(video_id):
+    return os.path.join(CACHE_DIR, f"{video_id}.txt")
+
+def is_cache_valid(video_id):
+    path = get_cache_path(video_id)
+    if not os.path.exists(path):
+        return False
+    age_hours = (datetime.now().timestamp() - os.path.getmtime(path)) / 3600
+    return age_hours < CACHE_MAX_AGE_HOURS
+
+def load_from_cache(video_id):
+    path = get_cache_path(video_id)
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            return f.read()
+    except:
+        return None
+
+def save_to_cache(video_id, text):
+    os.makedirs(CACHE_DIR, exist_ok=True)
+    path = get_cache_path(video_id)
+    with open(path, "w", encoding="utf-8") as f:
+        f.write(text)
+
+def download_subtitles(video_id):
+    # Check cache first
+    if is_cache_valid(video_id):
+        text = load_from_cache(video_id)
+        if text:
+            return text
+    
+    # Download from YouTube
+    tmp_dir = os.path.join(REPO_DIR, ".tmp")
+    os.makedirs(tmp_dir, exist_ok=True)
+    sub_file_base = os.path.join(tmp_dir, video_id)
+    
+    cmd = (
+        f'yt-dlp --write-sub --write-auto-sub '
+        f'--sub-lang {SUBTITLE_LANG} '
+        f'--sub-format vtt '
+        f'--skip-download '
+        f'-o "{sub_file_base}" '
+        f'"https://www.youtube.com/watch?v={video_id}" 2>/dev/null'
+    )
+    
+    run_cmd(cmd, timeout=120)
+    
+    files = glob.glob(f"{sub_file_base}*.vtt")
+    
+    if not files:
+        save_to_cache(video_id, "")
+        return None
+    
+    try:
+        with open(files[0], "r", encoding="utf-8") as f:
+            content = f.read()
+        cleaned = clean_vtt(content)
+        save_to_cache(video_id, cleaned)
+        return cleaned
+    except Exception as e:
+        log(f"  Error reading subtitles: {e}")
+        return None
+    finally:
+        for f in glob.glob(f"{sub_file_base}*"):
+            try:
+                os.remove(f)
+            except:
+                pass
+
+def clean_vtt(vtt_content):
+    lines = vtt_content.split("\n")
+    text_lines = []
+    
+    for line in lines:
+        line = line.strip()
+        if line.startswith("WEBVTT") or line.startswith("Kind:") or line.startswith("Language:"):
+            continue
+        if "-->" in line and re.match(r"\d{2}:\d{2}", line):
+            continue
+        if not line or line.isdigit():
+            continue
+        clean = re.sub(r"<[^>]+>", "", line)
+        clean = re.sub(r"align:[^ ]+ position:[^ ]+", "", clean)
+        if clean:
+            text_lines.append(clean)
+    
+    deduped = []
+    prev = ""
+    for l in text_lines:
+        if l != prev:
+            deduped.append(l)
+            prev = l
+    
+    return " ".join(deduped)
+
+# ============================================================
+# STEP 3: Summarize with Gemini (BRIEF + DETAILED)
+# ============================================================
+import time as _time
+
+def gemini_call(prompt, max_tokens=300, temperature=0.3, retries=3):
+    payload = {
+        "model": GEMINI_MODEL,
+        "messages": [{"role": "user", "content": prompt}],
+        "max_tokens": max_tokens,
+        "temperature": temperature
+    }
+    
+    for attempt in range(retries):
+        try:
+            resp = requests.post(
+                GEMINI_URL,
+                headers={"Content-Type": "application/json", "Authorization": "Bearer placeholder"},
+                json=payload,
+                timeout=120
+            )
+            
+            if resp.status_code == 200:
+                data = resp.json()
+                return data["choices"][0]["message"]["content"].strip()
+            elif resp.status_code == 429:
+                wait = 65
+                log(f"  ⏳ Rate limited, waiting {wait}s (attempt {attempt+1}/{retries})")
+                _time.sleep(wait)
+            else:
+                log(f"  Gemini API error {resp.status_code} (attempt {attempt+1})")
+                _time.sleep(10)
+        except Exception as e:
+            log(f"  Gemini timeout: {str(e)[:60]} (attempt {attempt+1})")
+            _time.sleep(10)
+    
+    return None
+
+def summarize_brief(title, subtitle_text):
+    if not subtitle_text:
+        return "Titulky nejsou k dispozici – video ještě nemá automatické titulky."
+    
+    prompt = (
+        f"Na základě titulků z YouTube videa '{title}' napiš stručný souhrn v češtině.\n"
+        f"- Max 2-3 věty\n"
+        f"- Hlavní novinky a klíčové body\n"
+        f"- Konkrétní nástroje, modely, funkce\n"
+        f"- Piš česky, bez úvodních frází\n\n"
+        f"Titulky:\n{subtitle_text[:MAX_SUBTITLE_CHARS]}"
+    )
+    
+    result = gemini_call(prompt, max_tokens=200, temperature=0.3)
+    return result or subtitle_text[:300] + "..."
+
+def summarize_detailed(title, subtitle_text):
+    if not subtitle_text:
+        return "Detailní přepis není k dispozici – video nemá titulky."
+    
+    # Use more of the subtitles for detailed version
+    extended = subtitle_text[:12000]
+    
+    prompt = (
+        f"Na základě titulků z YouTube videa '{title}' vytvoř PODROBNÝ souhrn v češtině.\n"
+        f"Požadavky:\n"
+        f"- Strukturovaný souhrn s odrážkami nebo číslovanými body\n"
+        f"- Vypiš VŠECHNY zmíněné nástroje, modely, platformy, funkce\n"
+        f"- Uveď konkrétní příklady a postupy z videa\n"
+        f"- Zahrň technické detaily (verze, parametry, ceny)\n"
+        f"- 6-10 vět / bodů\n"
+        f"- Piš česky\n"
+        f"- Nepiš nadpis videa, jen obsah\n\n"
+        f"Titulky:\n{extended}"
+    )
+    
+    result = gemini_call(prompt, max_tokens=800, temperature=0.3)
+    return result or subtitle_text[:1000] + "..."
+
+# ============================================================
+# STEP 4: Generate HTML with expandable details
+# ============================================================
+def generate_html(videos, fetch_date):
+    video_cards = ""
+    for v in videos:
+        vid_id = v["id"]
+        title = escape_html(v["title"])
+        duration = v.get("duration_formatted", "N/A")
+        url = v["url"]
+        thumbnail = v["thumbnail"]
+        brief = escape_html(v.get("brief_summary", "Souhrn není k dispozici."))
+        detailed = escape_html(v.get("detailed_summary", ""))
+        pub_date = format_relative_age(v.get("timestamp"), v.get("upload_date", ""))
+        
+        # Format detailed summary with line breaks
+        detailed_html = detailed.replace("\n", "<br>")
+        
+        video_cards += f"""
+            <article class="video-card" id="card-{vid_id}">
+                <a href="{url}" class="video-thumb" target="_blank">
+                    <img src="{thumbnail}" alt="{title}" loading="lazy">
+                    <span class="duration">{duration}</span>
+                </a>
+                <div class="video-info">
+                    <h2><a href="{url}" target="_blank">{title}</a></h2>
+                    <time>🕐 {pub_date}</time>
+                    <p class="summary-brief">{brief}</p>
+                    <button class="expand-btn" onclick="toggleDetail('{vid_id}')">
+                        📖 Zobrazit podrobnosti
+                    </button>
+                    <div class="detail-panel" id="detail-{vid_id}">
+                        <div class="detail-content">{detailed_html}</div>
+                    </div>
+                </div>
+            </article>
+"""
+    
+    html = f"""<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube AI Updates – JulianGoldieSEO</title>
+    <style>
+        * {{ margin: 0; padding: 0; box-sizing: border-box; }}
+        body {{
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0f0f0f;
+            color: #f1f1f1;
+            line-height: 1.6;
+        }}
+        header {{
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            padding: 2rem;
+            text-align: center;
+            border-bottom: 3px solid #e94560;
+        }}
+        header h1 {{ font-size: 1.8rem; margin-bottom: 0.5rem; }}
+        header h1 span {{ color: #e94560; }}
+        header p {{ color: #aaa; font-size: 0.9rem; }}
+        .container {{ max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; }}
+        .stats {{
+            display: flex; gap: 1rem; justify-content: center;
+            margin-bottom: 2rem; flex-wrap: wrap;
+        }}
+        .stat {{
+            background: #1a1a2e; padding: 0.8rem 1.5rem;
+            border-radius: 8px; border: 1px solid #333;
+        }}
+        .stat strong {{ color: #e94560; }}
+        .videos {{
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }}
+        .video-card {{
+            background: #1a1a2e; border-radius: 12px;
+            overflow: hidden; border: 1px solid #222;
+            transition: transform 0.2s, border-color 0.2s;
+        }}
+        .video-card:hover {{ transform: translateY(-4px); border-color: #e94560; }}
+        .video-thumb {{ position: relative; display: block; }}
+        .video-thumb img {{
+            width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block;
+        }}
+        .duration {{
+            position: absolute; bottom: 8px; right: 8px;
+            background: rgba(0,0,0,0.85); color: #fff;
+            padding: 2px 6px; border-radius: 4px;
+            font-size: 0.8rem; font-weight: 600;
+        }}
+        .video-info {{ padding: 1rem; }}
+        .video-info h2 {{ font-size: 1rem; margin-bottom: 0.3rem; }}
+        .video-info h2 a {{ color: #f1f1f1; text-decoration: none; }}
+        .video-info h2 a:hover {{ color: #e94560; }}
+        .video-info time {{
+            color: #888; font-size: 0.8rem;
+            display: block; margin-bottom: 0.5rem;
+        }}
+        .summary-brief {{
+            font-size: 0.85rem; color: #ccc; line-height: 1.5;
+            margin-bottom: 0.8rem;
+        }}
+        .expand-btn {{
+            background: none; border: 1px solid #e94560; color: #e94560;
+            padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer;
+            font-size: 0.8rem; transition: all 0.2s;
+            display: inline-flex; align-items: center; gap: 0.3rem;
+        }}
+        .expand-btn:hover {{ background: #e94560; color: #fff; }}
+        .expand-btn.active {{ background: #e94560; color: #fff; }}
+        .detail-panel {{
+            max-height: 0; overflow: hidden;
+            transition: max-height 0.4s ease-out, padding 0.3s;
+            margin-top: 0;
+        }}
+        .detail-panel.open {{
+            max-height: 2000px;
+            margin-top: 0.8rem;
+            padding-top: 0.8rem;
+            border-top: 1px solid #333;
+        }}
+        .detail-content {{
+            font-size: 0.82rem; color: #bbb; line-height: 1.6;
+            background: #111; padding: 0.8rem; border-radius: 8px;
+        }}
+        footer {{
+            text-align: center; padding: 2rem;
+            color: #555; font-size: 0.8rem; border-top: 1px solid #222;
+        }}
+        @media (max-width: 768px) {{
+            .videos {{ grid-template-columns: 1fr; }}
+            header h1 {{ font-size: 1.3rem; }}
+        }}
+    </style>
+</head>
+<body>
+    <header>
+        <h1>📺 <span>YouTube AI Updates</span> – JulianGoldieSEO</h1>
+        <p>Nejnovější AI novinky a návody | Aktualizováno {fetch_date} | Seřazeno od nejnovějšího</p>
+    </header>
+    <div class="container">
+        <div class="stats">
+            <div class="stat">📹 <strong>{len(videos)}</strong> videí za posledních {DAYS_BACK} dní</div>
+            <div class="stat">🔄 Aktualizace každý den v 7:00</div>
+            <div class="stat">🤖 Shrnutí: Gemini 3.1 Flash Lite</div>
+        </div>
+        <div class="videos">
+{video_cards}
+        </div>
+    </div>
+    <footer>
+        <p>Automaticky generováno OpenClaw agentem | Data: yt-dlp | Shrnutí: Google Gemini 3.1 Flash Lite</p>
+    </footer>
+    <script>
+        function toggleDetail(id) {{
+            const panel = document.getElementById('detail-' + id);
+            const btn = panel.previousElementSibling;
+            const isOpen = panel.classList.contains('open');
+            panel.classList.toggle('open');
+            btn.classList.toggle('active');
+            btn.textContent = isOpen ? '📖 Zobrazit podrobnosti' : '📕 Skrýt podrobnosti';
+        }}
+    </script>
+</body>
+</html>"""
+    
+    return html
+
+# ============================================================
+# STEP 5: Git commit and push
+# ============================================================
+def git_commit_and_push(video_count):
+    log("Committing and pushing...")
+    
+    # Stage everything including .cache
+    run_cmd(f"cd {REPO_DIR} && git add -A", timeout=10)
+    
+    date_str = datetime.now().strftime("%Y-%m-%d")
+    msg = f"Update {date_str}: {video_count} videos with detailed summaries"
+    
+    stdout, _, code = run_cmd(f'cd {REPO_DIR} && git commit -m "{msg}" 2>&1', timeout=10)
+    
+    if "nothing to commit" in stdout.lower():
+        log("No changes to commit")
+        return
+    
+    stdout, stderr, code = run_cmd(f"cd {REPO_DIR} && git push origin main 2>&1", timeout=60)
+    
+    if code == 0:
+        log("Pushed successfully!")
+    else:
+        log(f"Push failed: {stderr}")
+
+# ============================================================
+# MAIN
+# ============================================================
+def main():
+    log("=" * 50)
+    log("YouTube AI Updates Generator v2")
+    log(f"Gemini: {GEMINI_URL}")
+    log(f"Days back: {DAYS_BACK}, Max videos: {MAX_VIDEOS}")
+    log(f"Cache: {CACHE_DIR}")
+    log("=" * 50)
+    
+    # Step 1: Fetch videos
+    videos = fetch_videos(DAYS_BACK)
+    if not videos:
+        log("No videos found. Exiting.")
+        sys.exit(1)
+    
+    # Step 2 & 3: Get subtitles and generate summaries
+    cache_hits = 0
+    for i, v in enumerate(videos):
+        title = v["title"]
+        vid_id = v["id"]
+        
+        # Check if cache hit
+        cached = is_cache_valid(vid_id)
+        if cached:
+            cache_hits += 1
+        
+        log(f"[{i+1}/{len(videos)}] {'⚡' if cached else '📥'} {title[:55]}...")
+        
+        subtitle_text = download_subtitles(vid_id)
+        
+        # Brief summary
+        brief = summarize_brief(title, subtitle_text)
+        v["brief_summary"] = brief
+        log(f"  📝 Brief: {brief[:70]}...")
+        
+        # Detailed summary
+        detailed = summarize_detailed(title, subtitle_text)
+        v["detailed_summary"] = detailed
+        log(f"  📖 Detail: {detailed[:70]}...")
+        
+        # Delay between videos to avoid overwhelming Gemini proxy
+        _time.sleep(3)
+    
+    log(f"Cache: {cache_hits}/{len(videos)} hits")
+    
+    # Step 4: Generate HTML
+    fetch_date = datetime.now().strftime("%Y-%m-%d %H:%M")
+    html = generate_html(videos, fetch_date)
+    
+    index_path = os.path.join(REPO_DIR, "index.html")
+    with open(index_path, "w", encoding="utf-8") as f:
+        f.write(html)
+    log(f"Generated index.html with {len(videos)} videos")
+    
+    # Step 5: Git commit and push
+    git_commit_and_push(len(videos))
+    
+    log("=" * 50)
+    log(f"Done! {len(videos)} videos processed")
+    log(f"Web: https://michalserbus.github.io/youtube-updates/")
+    log("=" * 50)
+
+if __name__ == "__main__":
+    main()
