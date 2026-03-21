@@ -8,70 +8,70 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #ffffff;
-            color: #222222;
+            background: #0f0f0f;
+            color: #f1f1f1;
             line-height: 1.6;
         }
         header {
-            background: linear-gradient(135deg, #f5f7fa, #e8ecf1);
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
             padding: 2rem;
             text-align: center;
-            border-bottom: 3px solid #2563eb;
+            border-bottom: 3px solid #e94560;
         }
         header h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
-        header h1 span { color: #2563eb; }
-        header p { color: #666; font-size: 0.9rem; }
+        header h1 span { color: #e94560; }
+        header p { color: #aaa; font-size: 0.9rem; }
         .container { max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; }
         .stats {
             display: flex; gap: 1rem; justify-content: center;
             margin-bottom: 2rem; flex-wrap: wrap;
         }
         .stat {
-            background: #f5f7fa; padding: 0.8rem 1.5rem;
+            background: #1a1a2e; padding: 0.8rem 1.5rem;
             border-radius: 8px; border: 1px solid #333;
         }
-        .stat strong { color: #2563eb; }
+        .stat strong { color: #e94560; }
         .videos {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             gap: 1.5rem;
         }
         .video-card {
-            background: #f5f7fa; border-radius: 12px;
+            background: #1a1a2e; border-radius: 12px;
             overflow: hidden; border: 1px solid #222;
             transition: transform 0.2s, border-color 0.2s;
         }
-        .video-card:hover { transform: translateY(-4px); border-color: #2563eb; }
+        .video-card:hover { transform: translateY(-4px); border-color: #e94560; }
         .video-thumb { position: relative; display: block; }
         .video-thumb img {
             width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block;
         }
         .duration {
             position: absolute; bottom: 8px; right: 8px;
-            background: rgba(255,255,255,0.95); color: #222;
+            background: rgba(0,0,0,0.85); color: #fff;
             padding: 2px 6px; border-radius: 4px;
             font-size: 0.8rem; font-weight: 600;
         }
         .video-info { padding: 1rem; }
         .video-info h2 { font-size: 1rem; margin-bottom: 0.3rem; }
-        .video-info h2 a { color: #222222; text-decoration: none; }
-        .video-info h2 a:hover { color: #2563eb; }
+        .video-info h2 a { color: #f1f1f1; text-decoration: none; }
+        .video-info h2 a:hover { color: #e94560; }
         .video-info time {
             color: #888; font-size: 0.8rem;
             display: block; margin-bottom: 0.5rem;
         }
         .summary-brief {
-            font-size: 0.85rem; color: #333; line-height: 1.5;
+            font-size: 0.85rem; color: #ccc; line-height: 1.5;
             margin-bottom: 0.8rem;
         }
         .expand-btn {
-            background: none; border: 1px solid #2563eb; color: #2563eb;
+            background: none; border: 1px solid #e94560; color: #e94560;
             padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer;
             font-size: 0.8rem; transition: all 0.2s;
             display: inline-flex; align-items: center; gap: 0.3rem;
         }
-        .expand-btn:hover { background: #2563eb; color: #222; }
-        .expand-btn.active { background: #2563eb; color: #222; }
+        .expand-btn:hover { background: #e94560; color: #fff; }
+        .expand-btn.active { background: #e94560; color: #fff; }
         .detail-panel {
             max-height: 0; overflow: hidden;
             transition: max-height 0.4s ease-out, padding 0.3s;
@@ -84,8 +84,8 @@
             border-top: 1px solid #333;
         }
         .detail-content {
-            font-size: 0.82rem; color: #555; line-height: 1.6;
-            background: #f8fafc; padding: 0.8rem; border-radius: 8px;
+            font-size: 0.82rem; color: #bbb; line-height: 1.6;
+            background: #111; padding: 0.8rem; border-radius: 8px;
         }
         footer {
             text-align: center; padding: 2rem;
