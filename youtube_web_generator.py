@@ -22,7 +22,7 @@ from pathlib import Path
 
 # === CONFIG ===
 GEMINI_URL = os.environ.get("GEMINI_URL", "http://127.0.0.1:4000/v1/chat/completions")
-GEMINI_MODEL = "mimo-v2-flash"
+GEMINI_MODEL = "gemini-3.1-flash-lite-preview"
 YOUTUBE_CHANNEL = "https://www.youtube.com/@JulianGoldieSEO/videos"
 REPO_DIR = os.path.dirname(os.path.abspath(__file__))
 DAYS_BACK = int(os.environ.get("DAYS_BACK", "7"))
@@ -56,6 +56,24 @@ def format_duration(seconds):
         return f"{h}:{m:02d}:{s:02d}"
     return f"{m}:{s:02d}"
 
+def format_relative_age(timestamp, upload_date):
+    if timestamp:
+        diff = datetime.now().timestamp() - timestamp
+        if diff < 3600:
+            mins = max(1, int(diff / 60))
+            return f"před {mins} minutou" if mins == 1 else f"před {mins} minutami"
+        elif diff < 86400:
+            hours = int(diff / 3600)
+            return "před hodinou" if hours == 1 else f"před {hours} hodinami"
+        elif diff < 2 * 86400:
+            return "včera"
+        elif diff < 7 * 86400:
+            days = int(diff / 86400)
+            return f"před {days} dny"
+    if upload_date and len(upload_date) == 8:
+        return f"{upload_date[:4]}-{upload_date[4:6]}-{upload_date[6:]}"
+    return upload_date or "neznámé datum"
+
 def escape_html(text):
     return (text
         .replace("&", "&amp;")
@@ -74,7 +92,7 @@ def fetch_videos(days_back):
     cmd = (
         f'yt-dlp --playlist-end {MAX_VIDEOS} '
         f'--skip-download '
-        f'--print "%(id)s|||%(title)s|||%(duration)s|||%(upload_date)s" '
+        f'--print "%(id)s|||%(title)s|||%(duration)s|||%(upload_date)s|||%(timestamp)s" '
         f'"{YOUTUBE_CHANNEL}" 2>/dev/null'
     )
     
@@ -90,23 +108,26 @@ def fetch_videos(days_back):
         parts = line.split("|||")
         if len(parts) < 4:
             continue
-        
+
         vid_id = parts[0].strip()
         title = parts[1].strip()
         duration_str = parts[2].strip()
         upload_date = parts[3].strip()
-        
+        timestamp_str = parts[4].strip() if len(parts) > 4 else ""
+
         if upload_date and upload_date != "NA" and upload_date < DATE_CUTOFF:
             break
-        
+
         duration = float(duration_str) if duration_str not in ("NA", "", "None") else 0
-        
+        timestamp = float(timestamp_str) if timestamp_str not in ("NA", "", "None") else None
+
         videos.append({
             "id": vid_id,
             "title": title,
             "duration": duration,
             "duration_formatted": format_duration(duration),
             "upload_date": upload_date if upload_date != "NA" else "",
+            "timestamp": timestamp,
             "url": f"https://www.youtube.com/watch?v={vid_id}",
             "thumbnail": f"https://img.youtube.com/vi/{vid_id}/hqdefault.jpg",
             "brief_summary": "",
@@ -304,9 +325,7 @@ def generate_html(videos, fetch_date):
         thumbnail = v["thumbnail"]
         brief = escape_html(v.get("brief_summary", "Souhrn není k dispozici."))
         detailed = escape_html(v.get("detailed_summary", ""))
-        pub_date = v.get("upload_date", "")
-        if pub_date and len(pub_date) == 8:
-            pub_date = f"{pub_date[:4]}-{pub_date[4:6]}-{pub_date[6:]}"
+        pub_date = format_relative_age(v.get("timestamp"), v.get("upload_date", ""))
         
         # Format detailed summary with line breaks
         detailed_html = detailed.replace("\n", "<br>")
@@ -319,7 +338,7 @@ def generate_html(videos, fetch_date):
                 </a>
                 <div class="video-info">
                     <h2><a href="{url}" target="_blank">{title}</a></h2>
-                    <time datetime="{pub_date}">📅 {pub_date}</time>
+                    <time>🕐 {pub_date}</time>
                     <p class="summary-brief">{brief}</p>
                     <button class="expand-btn" onclick="toggleDetail('{vid_id}')">
                         📖 Zobrazit podrobnosti
