@@ -339,10 +339,7 @@ def generate_html(videos, fetch_date):
                 <div class="video-info">
                     <h2><a href="{url}" target="_blank">{title}</a></h2>
                     <time>🕐 {pub_date}</time>
-                    <p class="summary-brief">{brief}</p>
-                    <button class="expand-btn" onclick="toggleDetail('{vid_id}')">
-                        📖 Zobrazit podrobnosti
-                    </button>
+                    <p class="summary-brief" onclick="toggleDetail('{vid_id}')" title="Klikni pro podrobnosti">{brief}</p>
                     <div class="detail-panel" id="detail-{vid_id}">
                         <div class="detail-content">{detailed_html}</div>
                     </div>
@@ -414,26 +411,19 @@ def generate_html(videos, fetch_date):
         }}
         .summary-brief {{
             font-size: 0.85rem; color: #ccc; line-height: 1.5;
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.5rem; cursor: pointer;
+            border-bottom: 1px dashed #444; padding-bottom: 0.4rem;
+            transition: color 0.2s;
         }}
-        .expand-btn {{
-            background: none; border: 1px solid #e94560; color: #e94560;
-            padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer;
-            font-size: 0.8rem; transition: all 0.2s;
-            display: inline-flex; align-items: center; gap: 0.3rem;
-        }}
-        .expand-btn:hover {{ background: #e94560; color: #fff; }}
-        .expand-btn.active {{ background: #e94560; color: #fff; }}
+        .summary-brief:hover {{ color: #e94560; }}
+        .summary-brief.active {{ color: #e94560; border-bottom-color: #e94560; }}
         .detail-panel {{
             max-height: 0; overflow: hidden;
-            transition: max-height 0.4s ease-out, padding 0.3s;
-            margin-top: 0;
+            transition: max-height 0.4s ease-out;
         }}
         .detail-panel.open {{
             max-height: 2000px;
             margin-top: 0.8rem;
-            padding-top: 0.8rem;
-            border-top: 1px solid #333;
         }}
         .detail-content {{
             font-size: 0.82rem; color: #bbb; line-height: 1.6;
@@ -470,11 +460,9 @@ def generate_html(videos, fetch_date):
     <script>
         function toggleDetail(id) {{
             const panel = document.getElementById('detail-' + id);
-            const btn = panel.previousElementSibling;
-            const isOpen = panel.classList.contains('open');
+            const brief = panel.previousElementSibling;
             panel.classList.toggle('open');
-            btn.classList.toggle('active');
-            btn.textContent = isOpen ? '📖 Zobrazit podrobnosti' : '📕 Skrýt podrobnosti';
+            brief.classList.toggle('active');
         }}
     </script>
 </body>
