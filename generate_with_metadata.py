@@ -6,12 +6,7 @@ videos = [
     {"id": "oeUOGBJZdl0", "title": "Build Anything with Nemotron 3 Here's How!", "duration": 494, "upload_date": "20260320", "url": "https://www.youtube.com/watch?v=oeUOGBJZdl0"},
     {"id": "6mjnfAz5wlQ", "title": "NEW Google AI Updates are INSANE! 🤯", "duration": 511, "upload_date": "20260320", "url": "https://www.youtube.com/watch?v=6mjnfAz5wlQ"},
     {"id": "foXDDxSbZ7k", "title": "NEW Claude Code Update is INSANE!", "duration": 570, "upload_date": "20260320", "url": "https://www.youtube.com/watch?v=foXDDxSbZ7k"},
-    {"id": "7Ijaf2HFvjg", "title": "After the Storm: Public Safety, Project Alpha & AI | March 20, 2026", "duration": 1994, "upload_date": "20260320", "url": "https://www.youtube.com/watch?v=7Ijaf2HFvjg"},
-    {"id": "vabRab9F0w4", "title": "Nvidia's New NemoClaw + OpenClaw Update Free!", "duration": 436, "upload_date": "20260319", "url": "https://www.youtube.com/watch?v=vabRab9F0w4"},
-    {"id": "SWIk9g6-zBM", "title": "NEW Manus AI Computer Update is INSANE! 🤯", "duration": 485, "upload_date": "20260319", "url": "https://www.youtube.com/watch?v=SWIk9g6-zBM"},
-    {"id": "7Ju87DdiE0Y", "title": "New OpenClaw + Minimax M 2.7 + OpenClaw + Ollama Update!", "duration": 445, "upload_date": "20260319", "url": "https://www.youtube.com/watch?v=7Ju87DdiE0Y"},
-    {"id": "t700StIhtZo", "title": "Nvidia's New FREE NemoClaw + OpenClaw Update!", "duration": 479, "upload_date": "20260318", "url": "https://www.youtube.com/watch?v=t700StIhtZo"},
-    {"id": "a_8PPgYPpaQ", "title": "AI Breakthroughs March 2026 🚀 Exciting Innovations Unveiled!", "duration": 95, "upload_date": "20260314", "url": "https://www.youtube.com/watch?v=a_8PPgYPpaQ"},
+    {"id": "7Ijaf2HFvjg", "title": "After the Storm: Public Safety, Project Alpha & AI | March 20, 2026", "duration": 1994, "upload_date": "20260320", "url": "https://www.youtube.com/watch?v=7Ijaf2HFvjg"}
 ]
 
 def format_date(date_str):
