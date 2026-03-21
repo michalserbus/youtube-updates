@@ -22,7 +22,7 @@ from pathlib import Path
 
 # === CONFIG ===
 GEMINI_URL = os.environ.get("GEMINI_URL", "http://127.0.0.1:4000/v1/chat/completions")
-GEMINI_MODEL = "gemini-3.1-flash-lite-preview"
+GEMINI_MODEL = "minimax/minimax-m2-7"
 FALLBACK_MODEL = "xiaomi/mimo-v2-flash"
 YOUTUBE_CHANNEL = "https://www.youtube.com/@JulianGoldieSEO/videos"
 REPO_DIR = os.path.dirname(os.path.abspath(__file__))
