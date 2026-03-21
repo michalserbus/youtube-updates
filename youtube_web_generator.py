@@ -357,27 +357,27 @@ def generate_html(videos, fetch_date):
         * {{ margin: 0; padding: 0; box-sizing: border-box; }}
         body {{
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #0f0f0f;
-            color: #f1f1f1;
+            background: #f5f5f7;
+            color: #1d1d1f;
             line-height: 1.6;
         }}
         header {{
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            background: #ffffff;  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
             padding: 2rem;
             text-align: center;
-            border-bottom: 3px solid #e94560;
+            
         }}
         header h1 {{ font-size: 1.8rem; margin-bottom: 0.5rem; }}
         header h1 span {{ color: #e94560; }}
-        header p {{ color: #aaa; font-size: 0.9rem; }}
+        header p {{ color: #86868b; font-size: 0.9rem; }}
         .container {{ max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; }}
         .stats {{
             display: flex; gap: 1rem; justify-content: center;
             margin-bottom: 2rem; flex-wrap: wrap;
         }}
         .stat {{
-            background: #1a1a2e; padding: 0.8rem 1.5rem;
-            border-radius: 8px; border: 1px solid #333;
+            background: #ffffff; padding: 0.8rem 1.5rem; box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+            border-radius: 8px; border: 1px solid #e0e0e0;
         }}
         .stat strong {{ color: #e94560; }}
         .videos {{
@@ -386,33 +386,33 @@ def generate_html(videos, fetch_date):
             gap: 1.5rem;
         }}
         .video-card {{
-            background: #1a1a2e; border-radius: 12px;
-            overflow: hidden; border: 1px solid #222;
-            transition: transform 0.2s, border-color 0.2s;
+            background: #ffffff; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            overflow: hidden; border: 1px solid #e8e8e8;
+            transition: transform 0.2s, box-shadow 0.2s;
         }}
-        .video-card:hover {{ transform: translateY(-4px); border-color: #e94560; }}
+        .video-card:hover {{ transform: translateY(-4px); box-shadow: 0 6px 20px rgba(0,0,0,0.1); }}
         .video-thumb {{ position: relative; display: block; }}
         .video-thumb img {{
             width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block;
         }}
         .duration {{
             position: absolute; bottom: 8px; right: 8px;
-            background: rgba(0,0,0,0.85); color: #fff;
+            background: rgba(0,0,0,0.75); color: #fff;
             padding: 2px 6px; border-radius: 4px;
             font-size: 0.8rem; font-weight: 600;
         }}
         .video-info {{ padding: 1rem; }}
         .video-info h2 {{ font-size: 1rem; margin-bottom: 0.3rem; }}
-        .video-info h2 a {{ color: #f1f1f1; text-decoration: none; }}
+        .video-info h2 a {{ color: #1d1d1f; text-decoration: none; }}
         .video-info h2 a:hover {{ color: #e94560; }}
         .video-info time {{
-            color: #888; font-size: 0.8rem;
+            color: #86868b; font-size: 0.8rem;
             display: block; margin-bottom: 0.5rem;
         }}
         .summary-brief {{
-            font-size: 0.85rem; color: #ccc; line-height: 1.5;
+            font-size: 0.85rem; color: #555; line-height: 1.5;
             margin-bottom: 0.5rem; cursor: pointer;
-            border-bottom: 1px dashed #444; padding-bottom: 0.4rem;
+            border-bottom: 1px dashed #ccc; padding-bottom: 0.4rem;
             transition: color 0.2s;
         }}
         .summary-brief:hover {{ color: #e94560; }}
@@ -426,12 +426,12 @@ def generate_html(videos, fetch_date):
             margin-top: 0.8rem;
         }}
         .detail-content {{
-            font-size: 0.82rem; color: #bbb; line-height: 1.6;
-            background: #111; padding: 0.8rem; border-radius: 8px;
+            font-size: 0.82rem; color: #444; line-height: 1.6;
+            background: #f8f8fa; padding: 0.8rem; border-radius: 8px;
         }}
         footer {{
             text-align: center; padding: 2rem;
-            color: #555; font-size: 0.8rem; border-top: 1px solid #222;
+            color: #999; font-size: 0.8rem; border-top: 1px solid #e0e0e0;
         }}
         @media (max-width: 768px) {{
             .videos {{ grid-template-columns: 1fr; }}
