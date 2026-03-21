@@ -3,450 +3,234 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YouTube AI Updates – JulianGoldieSEO</title>
+    <title>AI Video Updates - YouTube</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #0f0f0f;
-            color: #f1f1f1;
-            line-height: 1.6;
-        }
-        header {
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
-            padding: 2rem;
-            text-align: center;
-            border-bottom: 3px solid #e94560;
-        }
-        header h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
-        header h1 span { color: #e94560; }
-        header p { color: #aaa; font-size: 0.9rem; }
-        .container { max-width: 1200px; margin: 0 auto; padding: 2rem 1rem; }
-        .stats {
-            display: flex; gap: 1rem; justify-content: center;
-            margin-bottom: 2rem; flex-wrap: wrap;
-        }
-        .stat {
-            background: #1a1a2e; padding: 0.8rem 1.5rem;
-            border-radius: 8px; border: 1px solid #333;
-        }
-        .stat strong { color: #e94560; }
-        .videos {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 1.5rem;
-        }
-        .video-card {
-            background: #1a1a2e; border-radius: 12px;
-            overflow: hidden; border: 1px solid #222;
-            transition: transform 0.2s, border-color 0.2s;
-        }
-        .video-card:hover { transform: translateY(-4px); border-color: #e94560; }
-        .video-thumb { position: relative; display: block; }
-        .video-thumb img {
-            width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block;
-        }
-        .duration {
-            position: absolute; bottom: 8px; right: 8px;
-            background: rgba(0,0,0,0.85); color: #fff;
-            padding: 2px 6px; border-radius: 4px;
-            font-size: 0.8rem; font-weight: 600;
-        }
-        .video-info { padding: 1rem; }
-        .video-info h2 { font-size: 1rem; margin-bottom: 0.3rem; }
-        .video-info h2 a { color: #f1f1f1; text-decoration: none; }
-        .video-info h2 a:hover { color: #e94560; }
-        .video-info time {
-            color: #888; font-size: 0.8rem;
-            display: block; margin-bottom: 0.5rem;
-        }
-        .summary-brief {
-            font-size: 0.85rem; color: #ccc; line-height: 1.5;
-            margin-bottom: 0.8rem;
-        }
-        .expand-btn {
-            background: none; border: 1px solid #e94560; color: #e94560;
-            padding: 0.4rem 0.8rem; border-radius: 6px; cursor: pointer;
-            font-size: 0.8rem; transition: all 0.2s;
-            display: inline-flex; align-items: center; gap: 0.3rem;
-        }
-        .expand-btn:hover { background: #e94560; color: #fff; }
-        .expand-btn.active { background: #e94560; color: #fff; }
-        .detail-panel {
-            max-height: 0; overflow: hidden;
-            transition: max-height 0.4s ease-out, padding 0.3s;
-            margin-top: 0;
-        }
-        .detail-panel.open {
-            max-height: 2000px;
-            margin-top: 0.8rem;
-            padding-top: 0.8rem;
-            border-top: 1px solid #333;
-        }
-        .detail-content {
-            font-size: 0.82rem; color: #bbb; line-height: 1.6;
-            background: #111; padding: 0.8rem; border-radius: 8px;
-        }
-        footer {
-            text-align: center; padding: 2rem;
-            color: #555; font-size: 0.8rem; border-top: 1px solid #222;
-        }
-        @media (max-width: 768px) {
-            .videos { grid-template-columns: 1fr; }
-            header h1 { font-size: 1.3rem; }
-        }
+        body { font-family: Arial, sans-serif; margin: 0; padding: 20px; background: #1a1a2e; color: #eee; }
+        .header { text-align: center; margin-bottom: 30px; }
+        .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px; }
+        .video-card { background: #16213e; border-radius: 10px; overflow: hidden; transition: transform 0.2s; }
+        .video-card:hover { transform: translateY(-3px); }
+        .video-thumb { width: 100%; aspect-ratio: 16/9; background: linear-gradient(135deg, #0f3460 0%, #1a1a2e 100%); display: flex; align-items: center; justify-content: center; font-size: 2em; }
+        .video-info { padding: 15px; }
+        .video-title { font-size: 1.1em; margin: 0 0 10px 0; color: #fff; }
+        .video-meta { display: flex; justify-content: space-between; color: #888; font-size: 0.9em; }
+        .video-summary { margin-top: 10px; font-size: 0.95em; color: #ccc; line-height: 1.5; }
+        .video-detail { margin-top: 10px; font-size: 0.9em; color: #999; display: none; padding-top: 10px; border-top: 1px solid #333; }
+        .toggle-btn { background: #0f3460; color: #fff; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; margin-top: 10px; }
+        .toggle-btn:hover { background: #1a5f7a; }
+        .visible { display: block !important; }
+        footer { text-align: center; margin-top: 30px; color: #666; font-size: 0.85em; }
+        .badge { background: #1a5f7a; padding: 2px 8px; border-radius: 10px; font-size: 0.8em; }
     </style>
 </head>
 <body>
-    <header>
-        <h1>📺 <span>YouTube AI Updates</span> – JulianGoldieSEO</h1>
-        <p>Nejnovější AI novinky a návody | Aktualizováno 2026-03-21 11:05 | Seřazeno od nejnovějšího</p>
-    </header>
-    <div class="container">
-        <div class="stats">
-            <div class="stat">📹 <strong>18</strong> videí za posledních 1 dní</div>
-            <div class="stat">🔄 Aktualizace každý den v 7:00</div>
-            <div class="stat">🤖 Shrnutí: Gemini 3.1 Flash Lite</div>
-        </div>
-        <div class="videos">
+    <div class="header">
+        <h1>🎬 AI Video Updates</h1>
+        <p>Kanal: <span class="badge">JulianGoldieSEO</span> | Posledních 7 dní | 9 videí</p>
+    </div>
+    
+    <div class="video-grid">
 
-            <article class="video-card" id="card-Pysh7jiZ0h8">
-                <a href="https://www.youtube.com/watch?v=Pysh7jiZ0h8" class="video-thumb" target="_blank">
-                    <img src="https://img.youtube.com/vi/Pysh7jiZ0h8/hqdefault.jpg" alt="NEW Manus Computer beats Perplexity Computer?" loading="lazy">
-                    <span class="duration">8:26</span>
-                </a>
-                <div class="video-info">
-                    <h2><a href="https://www.youtube.com/watch?v=Pysh7jiZ0h8" target="_blank">NEW Manus Computer beats Perplexity Computer?</a></h2>
-                    <time>🕐 před hodinou</time>
-                    <p class="summary-brief">Nová funkce „My Computer“ od společnosti Manus představuje revoluční AI agenta, který běží lokálně přímo na vašem počítači, nikoliv v cloudu, a dokáže ovládat aplikace, spravovat soubory či spouštět terminálové příkazy. Tento nástroj využívá výkon vašeho hardwaru k automatizaci komplexních úkolů, jako je vývoj aplikací nebo organizace dat, přičemž každou akci vyžaduje uživatel ke schválení.</p>
-                    <button class="expand-btn" onclick="toggleDetail('Pysh7jiZ0h8')">
-                        📖 Zobrazit podrobnosti
-                    </button>
-                    <div class="detail-panel" id="detail-Pysh7jiZ0h8">
-                        <div class="detail-content">Zde je podrobný souhrn informací o nástroji Manus a jeho vlivu na budoucnost práce s počítačem:<br><br>*   **Představení technologie:** Manus představil novou funkci „My Computer“, která funguje jako AI agent běžící přímo na vašem lokálním stroji (PC/Mac), nikoliv v cloudu nebo prohlížeči. Tento nástroj má přímý přístup k operačnímu systému, souborům, aplikacím a terminálu, čímž překonává dosavadní omezení AI modelů, které byly dříve uzavřeny v „sandboxu“.<br>*   **Klíčové funkce a možnosti:** Agent dokáže samostatně číst a upravovat soubory, organizovat složky, spouštět terminálové příkazy a využívat výkon vašeho hardwaru (GPU a procesor) pro náročné výpočetní úlohy. Uživatel může zadávat úkoly i vzdáleně prostřednictvím telefonu, přičemž agent je následně vykoná na vašem počítači v kanceláři či doma.<br>*   **Srovnání s konkurencí:** Hlavní rozdíl oproti „Perplexity Computer“ spočívá v rozsahu kontroly; zatímco Perplexity je omezeno na prostředí prohlížeče (ovládání webových stránek, klikání na tlačítka), Manus ovládá celý počítač. Manus běží lokálně, zatímco Perplexity spoléhá na cloudové servery.<br>*   **Konkrétní příklady využití:** Ve videu byl předveden proces automatické organizace tisíců souborů na ploše během několika minut a demonstrace vývoje plně funkční aplikace pro Mac přímo přes terminál, což trvalo přibližně 20 minut. Dalším využitím je automatizace opakujících se úkolů na pozadí, zatímco uživatel pracuje na jiných projektech.<br>*   **Bezpečnostní mechanismy:** Vzhledem k vysoké úrovni přístupu k systému implementoval Manus systém schvalování (Human-in-the-loop). Každý krok nebo příkaz, který chce AI provést, musí uživatel nejprve potvrdit, což zajišťuje, že člověk zůstává v roli „manažera“ a AI v roli „pracovníka“.<br>*   **Budoucí trend:** Video zdůrazňuje posun od AI v cloudu přes AI v prohlížeči až k AI integrované přímo do operačního systému. Tento vývoj směřuje k budoucnosti, kde uživatelé budou pouze zadávat cíle a AI bude samostatně otevírat aplikace a provádět operace, což zásadně změní způsob interakce s výpočetní technikou.<br>*   **Technické a strategické poznámky:** Nástroj je aktuálně ve své první verzi (v1). Autoři doporučují opatrnost při udělování přístupů a zdůrazňují nutnost kontroly prováděných příkazů. Pro zájemce o hlubší integraci AI do byznysu jsou zmiňovány vzdělávací platformy jako „AI Profit Boardroom“ a „AI Success Lab“.</div>
-                    </div>
+    <div class="video-card">
+        <div class="video-thumb">📺</div>
+        <div class="video-info">
+            <h3 class="video-title">Build Anything with Nemotron 3 Here's How!</h3>
+            <div class="video-meta">
+                <span>📅 20.03.2026</span>
+                <span>⏱ 08:14</span>
+            </div>
+            <div class="video-summary">
+                <p>Video o hlavních novinkách v AI a technologiích. Klikněte na 'Zobrazit podrobnosti' pro více informací.</p>
+                <button class="toggle-btn" onclick="toggleDetail(this)">📖 Zobrazit podrobnosti</button>
+                <div class="video-detail">
+                    <p><strong>Video ID:</strong> oeUOGBJZdl0</p>
+                    <p><strong>Délka:</strong> 08:14</p>
+                    <p><strong>Publikováno:</strong> 20.03.2026</p>
+                    <p><strong>URL:</strong> <a href="https://www.youtube.com/watch?v=oeUOGBJZdl0" target="_blank" style="color: #5b9bd5;">YouTube</a></p>
                 </div>
-            </article>
-
-            <article class="video-card" id="card-qHu5WHZMj1U">
-                <a href="https://www.youtube.com/watch?v=qHu5WHZMj1U" class="video-thumb" target="_blank">
-                    <img src="https://img.youtube.com/vi/qHu5WHZMj1U/hqdefault.jpg" alt="NEW Google AI Studio Update is INSANE! 🤯" loading="lazy">
-                    <span class="duration">8:25</span>
-                </a>
-                <div class="video-info">
-                    <h2><a href="https://www.youtube.com/watch?v=qHu5WHZMj1U" target="_blank">NEW Google AI Studio Update is INSANE! 🤯</a></h2>
-                    <time>🕐 před 3 hodinami</time>
-                    <p class="summary-brief">Google AI Studio se proměnilo v komplexní nástroj pro vývoj aplikací, který umožňuje vytvořit plně funkční software včetně backendu, databáze a autentizace pouze na základě textového zadání. Díky integraci autonomního „anti-gravity“ kódovacího agenta a platformy Firebase systém automaticky řeší strukturu kódu, real-time spolupráci i propojení s externími API bez nutnosti ručního programování.</p>
-                    <button class="expand-btn" onclick="toggleDetail('qHu5WHZMj1U')">
-                        📖 Zobrazit podrobnosti
-                    </button>
-                    <div class="detail-panel" id="detail-qHu5WHZMj1U">
-                        <div class="detail-content">Zde je podrobný souhrn aktualizace Google AI Studio, která mění platformu na plnohodnotný nástroj pro vývoj aplikací:<br><br>*   **Transformace na Full-Stack vývojové prostředí:** Google AI Studio se posunulo od pouhého „AI hřiště“ k plnohodnotnému nástroji pro tvorbu aplikací (tzv. *full-stack app builder*). Uživatelé již nemusí psát kód ručně, řešit backend, databáze nebo autentizaci; vše probíhá na základě textových zadání (promptů).<br>*   **Klíčová technologie – Anti-Gravity Coding Agent:** Jádrem systému je autonomní kódovací agent, který chápe celkovou strukturu projektu. Na rozdíl od běžných nástrojů pro doplňování kódu tento agent samostatně navrhuje architekturu, propojuje frontend s backendem a provádí víceúrovňové úkoly bez nutnosti neustálého vedení.<br>*   **Integrace Firebase:** Platforma je nyní přímo propojena s ekosystémem Firebase, což umožňuje automatické nastavení databáze (Firestore), autentizačních systémů (přihlašování/registrace) a hostingu. Díky tomu jsou aplikace po dokončení okamžitě připraveny k nasazení do ostrého provozu.<br>*   **Real-time spolupráce a API:** Systém umožňuje přidat komplexní funkce, jako je real-time synchronizace dat pro více uživatelů současně, aniž by uživatel musel konfigurovat servery nebo WebSockety. Stejně snadno lze integrovat externí API (např. data o počasí), přičemž agent se postará o bezpečné uložení klíčů a propojení dat s dashboardem.<br>*   **Autonomní optimalizace:** Uživatel může agenta vyzvat k analýze celého projektu, načež AI sama provede revizi kódu, opraví chyby, vylepší uživatelské rozhraní (UI) a optimalizuje výkon aplikace bez manuálního zásahu.<br>*   **Konkurenční srovnání:** Google AI Studio se tímto krokem přímo staví proti zavedeným nástrojům jako Replit AI, Vercel v0, Cursor nebo agentům typu Devon. Hlavní výhodou Googlu je přímá integrace s infrastrukturou Firebase a schopnost škálování.<br>*   **Praktický postup:** Proces vývoje probíhá formou tzv. „vibe codingu“, kdy uživatel popíše své požadavky (např. „vytvoř SaaS aplikaci s dashboardem a uživatelskými profily“). Následně lze přidávat další vrstvy funkcionality (např. „přidej real-time spolupráci“) pomocí dalších navazujících promptů.<br>*   **Cílová skupina:** Nástroj je určen pro podnikatele, tvůrce a kohokoliv s nápadem, kdo nemá technické vzdělání v programování, ale chce vytvářet funkční software, jako jsou chatovací aplikace, projektové nástroje nebo klientské portály.</div>
-                    </div>
-                </div>
-            </article>
-
-            <article class="video-card" id="card-NUuthiubHUE">
-                <a href="https://www.youtube.com/watch?v=NUuthiubHUE" class="video-thumb" target="_blank">
-                    <img src="https://img.youtube.com/vi/NUuthiubHUE/hqdefault.jpg" alt="NEW Claude Cowork Update is INSANE! 😱" loading="lazy">
-                    <span class="duration">8:00</span>
-                </a>
-                <div class="video-info">
-                    <h2><a href="https://www.youtube.com/watch?v=NUuthiubHUE" target="_blank">NEW Claude Cowork Update is INSANE! 😱</a></h2>
-                    <time>🕐 před 5 hodinami</time>
-                    <p class="summary-brief">Nová funkce Claude Dispatch v rámci nástroje Claude Co-work umožňuje ovládat počítač vzdáleně prostřednictvím mobilního telefonu pomocí QR kódu. AI nyní dokáže samostatně vykonávat komplexní úkoly na vašem desktopu, zatímco nejste přítomni, čímž se mění z pouhého chatbota na plnohodnotného spolupracovníka.</p>
-                    <button class="expand-btn" onclick="toggleDetail('NUuthiubHUE')">
-                        📖 Zobrazit podrobnosti
-                    </button>
-                    <div class="detail-panel" id="detail-NUuthiubHUE">
-                        <div class="detail-content">Zde je podrobný souhrn aktualizace Claude Co-work a funkce Claude Dispatch:<br><br>*   **Představení Claude Dispatch:** Anthropic uvedl novou funkci „Claude Dispatch“, která je součástí prostředí „Claude Co-work“. Tento nástroj umožňuje uživatelům ovládat počítač a zadávat úkoly prostřednictvím mobilního telefonu, i když se fyzicky nenacházejí u svého pracovního stolu.<br>*   **Princip fungování:** Propojení probíhá spuštěním režimu Co-work v desktopové aplikaci Claude, kde se vygeneruje QR kód. Po jeho naskenování telefonem se obě zařízení propojí do jedné kontinuální konverzace, což umožňuje vzdálené zadávání příkazů a sledování výsledků práce AI v reálném čase.<br>*   **Změna paradigmatu:** Technologie posouvá AI z role pasivního chatbota, u kterého musí uživatel neustále „sedět a dohlížet“, do role autonomního spolupracovníka (co-worker). Uživatel pouze zadá úkol a AI jej vykoná na pozadí, zatímco se věnuje jiným činnostem.<br>*   **Praktické příklady využití:** Mezi hlavní scénáře patří psaní scénářů na základě poznámek uložených v počítači během oběda, úprava a čištění prezentací během dojíždění nebo automatická organizace souborů ve složce „Stažené soubory“.<br>*   **Technické požadavky a omezení:** Funkce je aktuálně dostupná pouze pro uživatele s tarifem „Max Plan“ a nachází se ve fázi „research preview“. Pro správné fungování musí být počítač zapnutý a desktopová aplikace Claude musí běžet na pozadí.<br>*   **Bezpečnostní aspekty:** Anthropic si je vědom rizik spojených s přístupem AI k souborům v počítači, jako je nechtěné smazání dat nebo riziko „prompt injection“. Uživatelé by měli být obezřetní, protože se jedná o ranou verzi technologie.<br>*   **Konkurenční výhoda:** Na rozdíl od jiných agentních systémů (např. Manis nebo Perplexity Computer) se Claude Dispatch zaměřuje na přirozené propojení mobilního a desktopového zážitku, čímž efektivně mění počítač v nástroj, který pracuje pro uživatele i v jeho nepřítomnosti.<br>*   **Budoucí směřování:** Tato aktualizace je vnímána jako významný krok směrem k plně autonomním AI agentům, kteří budou schopni spravovat komplexní pracovní procesy bez nutnosti přímého zásahu člověka.</div>
-                    </div>
-                </div>
-            </article>
-
-            <article class="video-card" id="card-7H-YopnpqTU">
-                <a href="https://www.youtube.com/watch?v=7H-YopnpqTU" class="video-thumb" target="_blank">
-                    <img src="https://img.youtube.com/vi/7H-YopnpqTU/hqdefault.jpg" alt="NEW Google Stitch 2.0 Updates are INSANE! 🤯" loading="lazy">
-                    <span class="duration">8:49</span>
-                </a>
-                <div class="video-info">
-                    <h2><a href="https://www.youtube.com/watch?v=7H-YopnpqTU" target="_blank">NEW Google Stitch 2.0 Updates are INSANE! 🤯</a></h2>
-                    <time>🕐 před 7 hodinami</time>
-                    <p class="summary-brief">Nová verze Google Stitch přináší revoluci v tvorbě UI díky hlasovému ovládání v reálném čase a nekonečnému pracovnímu plátnu, které umožňuje navrhovat celé projekty v jednom celistvém prostoru. Tento AI nástroj od Google Labs nyní díky vylepšenému designovému agentovi udržuje konzistentní vizuální styl napříč všemi obrazovkami a automaticky generuje funkční kód v HTML, CSS a Reactu bez nutnosti znalosti programování či designu.</p>
-                    <button class="expand-btn" onclick="toggleDetail('7H-YopnpqTU')">
-                        📖 Zobrazit podrobnosti
-                    </button>
-                    <div class="detail-panel" id="detail-7H-YopnpqTU">
-                        <div class="detail-content">Zde je podrobný souhrn aktualizace **Google Stitch 2.0**, nástroje z dílny Google Labs, který zásadně mění proces tvorby uživatelského rozhraní (UI) a webového designu:<br><br>*   **Co je Google Stitch:** Jedná se o AI nástroj, který na základě textového zadání nebo náčrtu vygeneruje kompletní UI, včetně funkčního front-end kódu (HTML, CSS, React). Uživatel nepotřebuje znalosti programování ani designu (Figma), stačí schopnost jasně popsat požadovaný výsledek.<br>*   **Infinite Canvas (Nekonečné plátno):** Namísto práce s jednotlivými obrazovkami (artboardy) nabízí Stitch neomezený prostor. Uživatelé mohou vizualizovat celý produkt, uživatelské cesty a toky (flow) v jednom celistvém prostředí, což eliminuje nutnost přepínání mezi soubory.<br>*   **Smarter Design Agent (Chytřejší designový agent):** Klíčové vylepšení, které řeší problém s nekonzistencí. AI nyní disponuje „pamětí“ celého projektu – pamatuje si barvy, typografii, styl a předchozí rozhodnutí, takže každá další iterace respektuje nastavený vizuální směr a brand.<br>*   **Voice Mode (Hlasové ovládání):** Nová funkce „Vibe Design“ umožňuje ovládat tvorbu UI hlasem v reálném čase. Uživatel pouze slovně zadává instrukce (např. „přidej cenovou tabulku pod hero sekci“), které AI okamžitě realizuje, čímž se role designéra mění z „kresliče“ na „kreativního vedoucího“.<br>*   **Instant Interactive Prototypes:** Stitch nyní automaticky propojuje jednotlivé obrazovky do funkčního prototypu. Odpadá manuální propojování tlačítek a akcí, což umožňuje vytvořit klikatelný demo model produktu během několika minut namísto dnů.<br>*   **Design.md:** Nový systémový soubor, který funguje jako „README“ pro celý designový systém. Uživatel zde definuje pravidla (barvy, fonty, rozestupy) a AI je automaticky aplikuje na všechny budoucí komponenty, čímž je zajištěna stoprocentní vizuální konzistence napříč celým projektem.<br>*   **Hlavní přínos:** Aktualizace dramaticky zrychluje přechod od nápadu k hotovému produktu. Nástroj je ideální pro zakladatele SaaS, agentury nebo tvůrce landing pages, kteří potřebují validovat nápady a vytvářet profesionální výstupy bez nutnosti najímat designéry.</div>
-                    </div>
-                </div>
-            </article>
-
-            <article class="video-card" id="card-wc3KoGXB7KE">
-                <a href="https://www.youtube.com/watch?v=wc3KoGXB7KE" class="video-thumb" target="_blank">
-                    <img src="https://img.youtube.com/vi/wc3KoGXB7KE/hqdefault.jpg" alt="NEW Perplexity Comet Update is INSANE!" loading="lazy">
-                    <span class="duration">7:44</span>
-                </a>
-                <div class="video-info">
-                    <h2><a href="https://www.youtube.com/watch?v=wc3KoGXB7KE" target="_blank">NEW Perplexity Comet Update is INSANE!</a></h2>
-                    <time>🕐 před 9 hodinami</time>
-                    <p class="summary-brief">Perplexity uvedlo na iOS novou funkci Comet, která mění prohlížeč v plnohodnotného AI agenta schopného samostatně vyhledávat, analyzovat data a provádět komplexní úkoly bez nutnosti ručního klikání. Díky plné multiplatformní synchronizaci mezi desktopem, Androidem a iPhonem dokáže tento nástroj automatizovat běžné pracovní postupy, čímž výrazně zefektivňuje rešerše i tvorbu obsahu.</p>
-                    <button class="expand-btn" onclick="toggleDetail('wc3KoGXB7KE')">
-                        📖 Zobrazit podrobnosti
-                    </button>
-                    <div class="detail-panel" id="detail-wc3KoGXB7KE">
-                        <div class="detail-content">Zde je podrobný souhrn aktualizace Perplexity Comet na základě poskytnutých informací:<br><br>*   **Představení nástroje:** Perplexity Comet je inovativní prohlížeč založený na principu „agentní AI“, který na rozdíl od pasivních prohlížečů (Chrome, Safari) nečeká na uživatelské vstupy, ale aktivně za uživatele vykonává úkoly na internetu.<br>*   **Dostupnost a platformy:** Aplikace je nyní plně multiplatformní; po spuštění na desktopu (Mac/Windows) v červenci a na Androidu v listopadu je nyní dostupná i pro iOS (iPhone), což umožňuje plynulou synchronizaci práce mezi zařízeními.<br>*   **Klíčové funkce a princip fungování:** Comet nahrazuje tradiční vyhledávání (zadání dotazu -&gt; 10 modrých odkazů -&gt; ruční klikání) přímou konverzací v přirozeném jazyce, kdy AI sama vyhledá, shrne, porovná produkty nebo vytvoří výstup (např. e-mail či report).<br>*   **Agentní schopnosti:** Nástroj není pouhým vyhledávačem, ale agentem schopným provádět vícekrokové úkoly, jako je např. vyhledání nejlepších letenek, jejich porovnání a následné sepsání e-mailu s návrhy, aniž by uživatel musel opustit prostředí prohlížeče.<br>*   **Využití v praxi:** Pro studenty a tvůrce obsahu dramaticky zkracuje čas strávený rešeršemi (z hodin na minuty), zatímco pro podnikatele umožňuje automatizaci rutinních procesů, jako je analýza konkurence nebo zpracování dat, bez nutnosti přepínat mezi mnoha aplikacemi.<br>*   **Technické a strategické aspekty:** Perplexity tímto krokem přímo konkuruje gigantům jako Google a Apple, přičemž nabízí aktivní asistenci, kterou standardní prohlížeče postrádají; některé pokročilé funkce mohou být vázány na předplatné.<br>*   **Doporučení:** Autor videa zdůrazňuje, že jde o zásadní posun v používání internetu, a doporučuje uživatelům začít s nástrojem experimentovat okamžitě, aby získali konkurenční výhodu v éře AI automatizace.<br>*   **Další zdroje:** Pro hlubší pochopení automatizace a využití AI nástrojů v podnikání jsou zmiňovány komunitní platformy jako „AI Profit Boardroom“ a „AI Success Lab“.</div>
-                    </div>
-                </div>
-            </article>
-
-            <article class="video-card" id="card-qGzkor5Vfw0">
-                <a href="https://www.youtube.com/watch?v=qGzkor5Vfw0" class="video-thumb" target="_blank">
-                    <img src="https://img.youtube.com/vi/qGzkor5Vfw0/hqdefault.jpg" alt="NEW Claude Code Channels Update is INSANE! 🤯" loading="lazy">
-                    <span class="duration">8:15</span>
-                </a>
-                <div class="video-info">
-                    <h2><a href="https://www.youtube.com/watch?v=qGzkor5Vfw0" target="_blank">NEW Claude Code Channels Update is INSANE! 🤯</a></h2>
-                    <time>🕐 před 11 hodinami</time>
-                    <p class="summary-brief">Nová funkce Claude Code Channels umožňuje ovládat AI asistenta pro programování přímo z mobilních aplikací jako Telegram nebo Discord. Díky propojení přes Model Context Protocol (MCP) můžete zadávat úkoly, opravovat chyby nebo spouštět kód vzdáleně, přičemž AI vám následně pošle výsledky zpět do chatu.</p>
-                    <button class="expand-btn" onclick="toggleDetail('qGzkor5Vfw0')">
-                        📖 Zobrazit podrobnosti
-                    </button>
-                    <div class="detail-panel" id="detail-qGzkor5Vfw0">
-                        <div class="detail-content">Zde je podrobný souhrn aktualizace „Claude Code Channels“:<br><br>*   **Představení Claude Code Channels:** Tato nová funkce od společnosti Anthropic umožňuje ovládat Claude Code vzdáleně prostřednictvím komunikačních aplikací, jako jsou Telegram nebo Discord, čímž vás osvobozuje od nutnosti být neustále u počítače a terminálu.<br>*   **Princip fungování:** Systém funguje jako most mezi vaší chatovací aplikací a aktivní relací Claude Code běžící na vašem počítači; zpráva odeslaná z telefonu je předána agentovi, který provede úkol (např. opravu kódu) a výsledek vám pošle zpět do chatu.<br>*   **Technické pozadí (MCP):** Celé řešení je postaveno na protokolu **MCP (Model Context Protocol)**, který umožňuje Claudeovi integrovat se do různých aplikací pomocí botů a pluginů, čímž se z AI stává autonomní asistent schopný reagovat na zprávy či upravovat kód.<br>*   **Postup nastavení (příklad Telegram):** V aplikaci Telegram vytvoříte bota pomocí nástroje **BotFather**, získáte API token, nainstalujete příslušný plugin pro Claude Code, vložíte token a spustíte Claude Code s aktivovanými „channels“.<br>*   **Klíčové výhody:** AI se mění z pasivního nástroje na aktivního „zaměstnance“, který může pracovat na pozadí, zatímco vy nejste u stroje, což umožňuje zadávat úkoly z telefonu během dne nebo nechat kód běžet přes noc.<br>*   **Aktuální omezení:** Systém vyžaduje, aby počítač zůstal zapnutý a připojený k internetu, některé úkony stále vyžadují manuální potvrzení v terminálu (kvůli bezpečnosti) a plugin pro Telegram zatím nepodporuje historii zpráv ani vyhledávání.<br>*   **Srovnání a vize:** Claude Code Channels představuje krok Anthropicu v závodu o autonomní agenty, přičemž klade důraz na přístupnost a integraci do běžně používaných aplikací namísto vytváření nových, složitých dashboardů.</div>
-                    </div>
-                </div>
-            </article>
-
-            <article class="video-card" id="card-m-n8RXbPU8U">
-                <a href="https://www.youtube.com/watch?v=m-n8RXbPU8U" class="video-thumb" target="_blank">
-                    <img src="https://img.youtube.com/vi/m-n8RXbPU8U/hqdefault.jpg" alt="NEW Google Personal Intelligence  Update is INSANE!" loading="lazy">
-                    <span class="duration">9:04</span>
-                </a>
-                <div class="video-info">
-                    <h2><a href="https://www.youtube.com/watch?v=m-n8RXbPU8U" target="_blank">NEW Google Personal Intelligence  Update is INSANE!</a></h2>
-                    <time>🕐 před 13 hodinami</time>
-                    <p class="summary-brief">Google představil funkci „Personal Intelligence“, která propojuje umělou inteligenci s vašimi osobními daty z Gmailu, Fotek, historie vyhledávání a YouTube. Díky tomu AI získává kontext o vašem životě a práci, takže si pamatuje vaše preference a eliminuje nutnost opakovaného vysvětlování v každé nové konverzaci. Tato novinka je nyní dostupná v rámci vyhledávání Google, aplikace Gemini a prohlížeče Chrome.</p>
-                    <button class="expand-btn" onclick="toggleDetail('m-n8RXbPU8U')">
-                        📖 Zobrazit podrobnosti
-                    </button>
-                    <div class="detail-panel" id="detail-m-n8RXbPU8U">
-                        <div class="detail-content">Zde je podrobný souhrn aktualizace „Personal Intelligence“ od společnosti Google:<br><br>*   **Hlavní koncept:** Google představil „Personal Intelligence“ (osobní inteligenci), která zásadně mění fungování AI tím, že jí poskytuje dlouhodobou paměť a kontext o vašem životě. Namísto „čistého listu“ při každém dotazu nyní AI propojuje data z vašich služeb (Gmail, Fotky Google, historie YouTube, historie vyhledávání), aby poskytovala personalizované a relevantní odpovědi bez nutnosti opakovaného vysvětlování kontextu.<br>*   **Dostupnost a platformy:** Tato funkce je integrována napříč třemi hlavními rozhraními: AI režim v Google Vyhledávání, aplikace Gemini a Gemini integrované přímo v prohlížeči Chrome.<br>*   **Konkrétní příklady využití:**<br>    *   **Plánování dovolené:** AI namísto obecných otázek automaticky analyzuje vaše minulé rezervace hotelů v Gmailu, oblíbené destinace ve Fotkách a historii vyhledávání, aby vytvořila itinerář na míru.<br>    *   **Tvorba obsahu:** Při psaní e-mailů AI analyzuje váš předchozí styl psaní, tón a témata, na která vaše publikum reaguje, čímž vytváří texty, které znějí jako vy.<br>    *   **Strategie:** AI dokáže navrhnout obsahovou strategii na základě toho, co skutečně sledujete na YouTube a co vás zajímá, nikoliv na základě obecných šablon.<br>*   **Funkce „Unexpected Discovery“ (Nečekaný objev):** Jedná se o schopnost AI propojovat zdánlivě nesouvisející data (např. vaše pracovní zaměření na automatizace vs. vaše záliba ve videoprodukci) a nabízet vám kreativní nápady nebo řešení, která by vás samotné nenapadla.<br>*   **Technické a bezpečnostní detaily:**<br>    *   **Ochrana soukromí:** Funkce je plně „opt-in“ (volitelná), uživatel si sám vybírá, které aplikace propojí, a může je kdykoliv odpojit v nastavení účtu.<br>    *   **Trénování modelů:** Google výslovně uvádí, že vaše e-maily a fotografie nejsou používány k trénování jejich AI modelů; data jsou využita pouze v reálném čase pro zodpovězení konkrétního dotazu.<br>*   **Strategický význam:** Google tímto krokem přechází od reaktivní AI (která pouze odpovídá na dotazy) k proaktivní AI, která funguje jako „paměťová vrstva“ celého ekosystému. Cílem je vytvořit z platformy Google osobní operační systém, který zná potřeby uživatele dříve, než je sám vysloví.<br>*   **Doporučené zdroje:** Pro praktickou implementaci těchto nástrojů do podnikání video odkazuje na komunitu „AI Profit Boardroom“ a „AI Success Lab“, které nabízejí konkrétní pracovní postupy (SOPs) a případové studie.</div>
-                    </div>
-                </div>
-            </article>
-
-            <article class="video-card" id="card-swuHX_CSOuo">
-                <a href="https://www.youtube.com/watch?v=swuHX_CSOuo" class="video-thumb" target="_blank">
-                    <img src="https://img.youtube.com/vi/swuHX_CSOuo/hqdefault.jpg" alt="NEW Google Stitch Update is INSANE!" loading="lazy">
-                    <span class="duration">8:03</span>
-                </a>
-                <div class="video-info">
-                    <h2><a href="https://www.youtube.com/watch?v=swuHX_CSOuo" target="_blank">NEW Google Stitch Update is INSANE!</a></h2>
-                    <time>🕐 před 13 hodinami</time>
-                    <p class="summary-brief">Google Stitch je nový nástroj poháněný modelem Gemini 2.5, který na základě textového zadání okamžitě generuje funkční uživatelská rozhraní včetně kódu (HTML, CSS, React, Tailwind) a Figma návrhů. Díky novému TypeScript SDK a „agent-first“ API nyní mohou celý proces vývoje a designu plně automatizovat AI agenti bez nutnosti lidského zásahu. Tato technologie zásadně zrychluje tvorbu webů a aplikací, čímž eliminuje potřebu zdlouhavé spolupráce mezi designéry a vývojáři.</p>
-                    <button class="expand-btn" onclick="toggleDetail('swuHX_CSOuo')">
-                        📖 Zobrazit podrobnosti
-                    </button>
-                    <div class="detail-panel" id="detail-swuHX_CSOuo">
-                        <div class="detail-content">Zde je podrobný souhrn informací o aktualizaci Google Stitch:<br><br>*   **Co je Google Stitch:** Jedná se o nástroj poháněný modelem **Gemini 2.5**, který umožňuje generovat kompletní uživatelská rozhraní (UI) na základě textového zadání. Nástroj vytváří nejen vizuální návrhy, ale i funkční kód (HTML, CSS, Tailwind, React komponenty) a exporty pro Figma.<br>*   **Klíčová aktualizace (Agent-first API):** Hlavní novinkou je spuštění **TypeScript SDK** (instalace příkazem `npm i google-stitch-sdk`), díky kterému je Stitch plně programovatelný. Umožňuje AI agentům, aby nástroj používali autonomně bez nutnosti lidského zásahu.<br>*   **Automatizované pracovní postupy:** Díky API mohou agenti provádět úkony jako „vytvořit projekt“, „upravit obrazovku“ nebo „vypsat dostupné nástroje“. To umožňuje vytvářet systémy, které automaticky generují personalizované dashboardy pro uživatele nebo provádějí A/B testování landing pages v řádu minut.<br>*   **Příklad z praxe:** Místo tradičního procesu (zadání designérovi, čekání na vývojáře, úpravy), který trvá týdny, stačí zadat prompt typu: „Vytvoř konverzní landing page pro AI profit boardroom, která vysvětlí výhody automatizace.“ Stitch okamžitě vygeneruje strukturu, rozvržení a kód.<br>*   **Technické limity:** Nástroj je stále v experimentální fázi. Není určen pro komplexní backendovou logiku, autentizační systémy nebo databázovou architekturu; pro tyto účely je stále nutný vývojář. Kvalita výstupu přímo závisí na přesnosti a kvalitě zadaného promptu.<br>*   **Změna role v týmu:** Designéři a vývojáři již nejsou úzkým hrdlem procesu. Role se posouvá od manuální tvorby pixelů k „orchestraci“ AI, kdy člověk definuje strategii a zadání, zatímco AI agenti zajišťují exekuci a generování kódu.<br>*   **Doporučené workflow:** Video zdůrazňuje tři hlavní způsoby využití: automatizovaný generátor lead magnet stránek, personalizované onboardingové dashboardy pro nové klienty a systém pro rychlé A/B testování různých variant webových stránek.</div>
-                    </div>
-                </div>
-            </article>
-
-            <article class="video-card" id="card-dxbmYk-nmgQ">
-                <a href="https://www.youtube.com/watch?v=dxbmYk-nmgQ" class="video-thumb" target="_blank">
-                    <img src="https://img.youtube.com/vi/dxbmYk-nmgQ/hqdefault.jpg" alt="OpenClaw + Xiaomi’s MiMo-V2-Pro (FREE!)" loading="lazy">
-                    <span class="duration">8:19</span>
-                </a>
-                <div class="video-info">
-                    <h2><a href="https://www.youtube.com/watch?v=dxbmYk-nmgQ" target="_blank">OpenClaw + Xiaomi’s MiMo-V2-Pro (FREE!)</a></h2>
-                    <time>🕐 před 15 hodinami</time>
-                    <p class="summary-brief">Xiaomi vydalo nový AI model MiMo-V2-Pro s bilionem parametrů, který díky kontextovému oknu o velikosti 1 milionu tokenů a vysokému výkonu v kódování překonává modely jako Claude 3.5 Sonnet. Tento agentní model je nyní zdarma dostupný prostřednictvím nástrojů OpenClaw a KiloClaw, které umožňují jeho snadné nasazení pro automatizaci úkolů. Model, dříve známý pod kódovým označením Hunter Alpha, dosahuje špičkových výsledků v benchmarku pro agentní systémy a nabízí pokročilé schopnosti v programování i práci s rozsáhlými daty.</p>
-                    <button class="expand-btn" onclick="toggleDetail('dxbmYk-nmgQ')">
-                        📖 Zobrazit podrobnosti
-                    </button>
-                    <div class="detail-panel" id="detail-dxbmYk-nmgQ">
-                        <div class="detail-content">Zde je podrobný souhrn informací o novém modelu Xiaomi Myo V2 Pro a jeho integraci:<br><br>*   **Představení modelu:** Společnost Xiaomi vydala 18. března 2026 svůj dosud nejvýkonnější AI model s názvem **Myo V2 Pro**. Jedná se o „agentní“ model s více než bilionem parametrů (42 miliard aktivních během provozu), který disponuje kontextovým oknem o velikosti 1 milionu tokenů.<br>*   **Technické parametry a výkon:** Model vykazuje vysokou efektivitu, kdy k dokončení úkolů potřebuje výrazně méně výstupních tokenů než konkurence (např. GLM nebo Kimi). V benchmarku *Claw Evaluation* dosáhl skóre 61,5 (blízko Claude Opus 4.6) a v kódování překonává model Claude Sonic 4.6.<br>*   **Historie a vývoj:** Na projektu se podílel tým pod vedením Fui Lua, veterána z projektu DeepSeek R1. Před oficiálním vydáním byl model testován na platformě *OpenRouter* pod kódovým označením „Hunter Alpha“, kde během týdne dosáhl přes bilion tokenů v celkovém využití.<br>*   **Dostupnost a integrace:** Model je aktuálně dostupný zdarma prostřednictvím nástrojů **OpenClaw** (open-source kódovací agent běžící lokálně) a **Kilo Claw** (cloudová verze OpenClaw). V Kilo Claw lze model snadno vybrat z rozbalovací nabídky v nastavení API, což zabere přibližně 60 sekund.<br>*   **Časové omezení:** Bezplatný přístup k modelu Myo V2 Pro prostřednictvím zmíněných platforem je časově omezen na jeden týden od data vydání (do cca 25. března 2026).<br>*   **Další zmíněné nástroje a platformy:** Kromě hlavních nástrojů OpenClaw a Kilo Claw (též známé jako Kilo Code) video zmiňuje platformy jako OpenRouter, Claude Opus 4.6, Claude Sonic 4.6, GLM5 a Kimi 2.5.<br>*   **Doporučený postup:** Pro uživatele je nejjednodušší cestou využití Kilo Claw, kde stačí v rozhraní vybrat model `Xiaomi/Myo-V2-Pro`. Alternativně lze využít API klíč v rámci OpenClaw, což je však technicky náročnější proces.<br>*   **Komunitní podpora:** Autor videa odkazuje na komunitu „AI Profit Boardroom“, která nabízí 30denní roadmapu, 100 promptů pro práci s modelem, školení pro agenty a pravidelné koučinkové hovory pro efektivní využívání těchto technologií.</div>
-                    </div>
-                </div>
-            </article>
-
-            <article class="video-card" id="card-9Peip22rnLM">
-                <a href="https://www.youtube.com/watch?v=9Peip22rnLM" class="video-thumb" target="_blank">
-                    <img src="https://img.youtube.com/vi/9Peip22rnLM/hqdefault.jpg" alt="NEW Chinese Xiaomi AI MiMo-V2-Pro" loading="lazy">
-                    <span class="duration">9:58</span>
-                </a>
-                <div class="video-info">
-                    <h2><a href="https://www.youtube.com/watch?v=9Peip22rnLM" target="_blank">NEW Chinese Xiaomi AI MiMo-V2-Pro</a></h2>
-                    <time>🕐 před 17 hodinami</time>
-                    <p class="summary-brief">Společnost Xiaomi představila nový AI model MiMo-V2-Pro (dříve známý jako „Hunter Alpha“), který se zaměřuje na autonomní agenty schopné vykonávat komplexní úkoly, jako je tvorba webů či automatizace pracovních postupů. Model disponuje kontextovým oknem o velikosti 1 milionu tokenů a díky své vysoké efektivitě v kódování a nízkým nákladům aktuálně dominuje žebříčkům na platformě OpenRouter. Nástroj je nyní dostupný zdarma prostřednictvím platforem jako Kilo Code a OpenRouter.</p>
-                    <button class="expand-btn" onclick="toggleDetail('9Peip22rnLM')">
-                        📖 Zobrazit podrobnosti
-                    </button>
-                    <div class="detail-panel" id="detail-9Peip22rnLM">
-                        <div class="detail-content">Zde je podrobný souhrn informací o modelu Xiaomi MiMo-V2-Pro:<br><br>*   **Představení modelu:** Xiaomi MiMo-V2-Pro (původně vystupující pod anonymním označením „Hunter Alpha“) je nový AI model od společnosti Xiaomi, který se stal celosvětově populárním díky své schopnosti konkurovat špičkovým modelům jako Claude 3.5 Sonnet. Model byl navržen primárně pro „agentní“ úlohy, tedy pro reálnou práci a automatizaci procesů, nikoliv pouze pro konverzaci.<br>*   **Technické parametry a výkon:** Model disponuje kontextovým oknem o velikosti 1 milionu tokenů a obsahuje přes 1 bilion parametrů. V nezávislých testech (Artificial Analysis) dosáhl skóre 78, což ho řadí těsně za Claude 3.5 Sonnet (skóre 79,6). Během testovacího týdne na platformě OpenRouter zpracoval přes 1 bilion tokenů a obsadil první místo v žebříčku.<br>*   **Dostupnost a platformy:** Model je aktuálně dostupný zdarma prostřednictvím platforem **OpenCode** (opencode.ai/download) a **KiloCode/KiloClaw**. Uživatelé mohou v těchto aplikacích přepínat mezi modely, přičemž kromě verze „V2 Pro“ jsou k dispozici i varianty jako „V2 Omni“ nebo „V2 Flash“.<br>*   **Praktické využití:** Model funguje jako „mozek“ pro AI agenty. Uživatelé jej mohou integrovat do pracovních postupů (workflow), kde model samostatně spouští nástroje, píše kód, vytváří webové stránky na základě jediného zadání nebo spravuje databáze a e-maily.<br>*   **Postup implementace:** V aplikaci OpenCode si uživatel otevře projektovou složku, v dolní liště vybere model „MiMo-V2-Pro“ a zadá instrukci (např. „vytvoř krásnou webovou stránku“). Model následně samostatně vygeneruje kód a strukturu projektu.<br>*   **Čtyřvrstvý rámec pro podnikání:** Autor videa doporučuje využívat model ve čtyřech vrstvách: 1. **Mozek** (MiMo-V2-Pro pro logické uvažování), 2. **Nástroje** (propojení s webem, e-maily, databázemi), 3. **Workflow** (automatizovaná sekvence úkolů) a 4. **Výstup** (generování obsahu, leadů a zákaznických interakcí).<br>*   **Komunitní podpora:** Pro pokročilé zájemce o automatizaci existuje komunita „AI Profit Boardroom“, která nabízí 30denní plán, 100 připravených promptů pro různé obchodní scénáře a pravidelné koučinkové hovory pro efektivní nasazení AI agentů do praxe.</div>
-                    </div>
-                </div>
-            </article>
-
-            <article class="video-card" id="card-PrHBaNc7g9U">
-                <a href="https://www.youtube.com/watch?v=PrHBaNc7g9U" class="video-thumb" target="_blank">
-                    <img src="https://img.youtube.com/vi/PrHBaNc7g9U/hqdefault.jpg" alt="New FREE Google AI Studio + Antigravity Update" loading="lazy">
-                    <span class="duration">10:48</span>
-                </a>
-                <div class="video-info">
-                    <h2><a href="https://www.youtube.com/watch?v=PrHBaNc7g9U" target="_blank">New FREE Google AI Studio + Antigravity Update</a></h2>
-                    <time>🕐 před 19 hodinami</time>
-                    <p class="summary-brief">Google AI Studio představilo zásadní aktualizaci, která umožňuje komukoliv vytvořit plně funkční webovou aplikaci s databází a přihlašováním pouze na základě zadání v přirozeném jazyce. Díky integraci „anti-gravity“ kódovacího agenta a backendové platformy Firebase nyní systém automaticky vygeneruje kompletní kód i infrastrukturu bez nutnosti programování. Všechny tyto nástroje jsou dostupné zdarma přímo v prohlížeči.</p>
-                    <button class="expand-btn" onclick="toggleDetail('PrHBaNc7g9U')">
-                        📖 Zobrazit podrobnosti
-                    </button>
-                    <div class="detail-panel" id="detail-PrHBaNc7g9U">
-                        <div class="detail-content">Zde je podrobný souhrn aktualizace Google AI Studio:<br><br>*   **Hlavní novinka:** Google integroval do platformy **Google AI Studio** (dostupné na `astudio.google.com`) pokročilého kódovacího agenta „Anti-gravity“ a backendový systém **Firebase**. Tato kombinace umožňuje uživatelům bez znalosti programování vytvářet plně funkční webové aplikace pomocí jednoduchých textových zadání v přirozeném jazyce.<br>*   **Klíčové technologie a integrace:**<br>    *   **Anti-gravity coding agent:** AI agent, který rozumí struktuře celého projektu, provádí víceúrovňové úkoly a automaticky buduje front-end i back-end.<br>    *   **Firebase:** Enterprise-grade backend od Googlu, který zajišťuje databázi, uživatelské přihlašování (login) a real-time funkce.<br>    *   **Vibe coding:** Metoda vývoje, při které uživatel pouze popíše „vibe“ (vizi) aplikace a AI se postará o veškerou technickou implementaci.<br>*   **Funkce a možnosti:** Platforma podporuje tvorbu aplikací s reálnou databází, uživatelskými účty, kolaborativními nástroji (multiplayer) a dashboardy s aktualizací v reálném čase. Umožňuje také integraci externích služeb, jako je Google Maps nebo Google Sheets.<br>*   **Pracovní postup (Workflow):**<br>    1.  **Definice:** Uživatel zadá prompt (např. „vytvoř aplikaci pro sledování návyků s leaderboardem“).<br>    2.  **Plánování:** Agent navrhne strukturu projektu, kterou uživatel schválí.<br>    3.  **Power-up:** Při detekci potřeby databáze agent nabídne aktivaci Firebase, čímž propojí aplikaci s reálným úložištěm dat.<br>    4.  **Vývoj a nasazení:** AI automaticky vybuduje kód, propojí služby a uživatel může aplikaci jedním kliknutím publikovat a sdílet.<br>*   **Technické výhody:** Na rozdíl od jiných nástrojů (jako Bolt.new nebo Replit), které často vytvářejí pouze statické ukázky, Google AI Studio díky nativnímu propojení s Firebase umožňuje stavět plnohodnotné, produkčně využitelné aplikace.<br>*   **Dostupnost a cena:** Služba je dostupná zdarma v rámci webového prohlížeče a nabízí „free tier“ (bezplatnou úroveň), což z ní činí jeden z nejdostupnějších nástrojů pro vývoj full-stack aplikací na trhu.<br>*   **Persistence:** Systém podporuje persistentní relace, což znamená, že si pamatuje stav projektu mezi jednotlivými přihlášeními a uživatel může v práci kdykoliv pokračovat tam, kde přestal.</div>
-                    </div>
-                </div>
-            </article>
-
-            <article class="video-card" id="card-W4NvEYOWdWY">
-                <a href="https://www.youtube.com/watch?v=W4NvEYOWdWY" class="video-thumb" target="_blank">
-                    <img src="https://img.youtube.com/vi/W4NvEYOWdWY/hqdefault.jpg" alt="Claude Code Channels DESTROYS OpenClaw" loading="lazy">
-                    <span class="duration">11:37</span>
-                </a>
-                <div class="video-info">
-                    <h2><a href="https://www.youtube.com/watch?v=W4NvEYOWdWY" target="_blank">Claude Code Channels DESTROYS OpenClaw</a></h2>
-                    <time>🕐 před 21 hodinami</time>
-                    <p class="summary-brief">Nová aktualizace „Channels“ pro Claude Code umožňuje ovládat AI agenta vzdáleně prostřednictvím Telegramu nebo Discordu, čímž eliminuje nutnost být fyzicky u počítače. Tato funkce přímo integruje možnost zadávat úkoly a komunikovat s modelem Claude z mobilního telefonu, což z něj činí přímou a výkonnější konkurenci pro projekt OpenClaw.</p>
-                    <button class="expand-btn" onclick="toggleDetail('W4NvEYOWdWY')">
-                        📖 Zobrazit podrobnosti
-                    </button>
-                    <div class="detail-panel" id="detail-W4NvEYOWdWY">
-                        <div class="detail-content">Zde je podrobný souhrn aktualizace „Channels“ pro nástroj Claude Code:<br><br>*   **Představení funkce Channels:** Anthropic vydal aktualizaci pro Claude Code, která umožňuje vzdálené ovládání AI agenta běžícího na vašem počítači prostřednictvím mobilního telefonu. Funkce funguje jako „vysílačka“ – pošlete zprávu přes Telegram nebo Discord, Claude ji zpracuje, provede úkol na vašem lokálním stroji a pošle vám odpověď zpět.<br>*   **Klíčové nástroje a platformy:** Pro zprovoznění je vyžadován **Claude Code** (verze 2.1 nebo novější), runtime prostředí **Bun**, účet u **Anthropic (Claude AI)** a komunikační platforma **Telegram** nebo **Discord**.<br>*   **Technický postup instalace:** Proces zahrnuje instalaci pluginu přímo v terminálu Claude Code, vytvoření bota přes *BotFather* (v případě Telegramu), konfiguraci přístupového tokenu a nastavení „allow listu“ (seznamu povolených odesílatelů) pro zajištění bezpečnosti.<br>*   **Rozdíl oproti OpenClaw:** Zatímco OpenClaw funguje jako samostatný nezávislý agent, Claude Code Channels využívá běžící instanci Claude Code na vašem počítači. Díky tomu má AI přímý přístup k vašim lokálním souborům, projektům a vývojářským nástrojům, což umožňuje komplexnější práci s kódem.<br>*   **Architektura systému:** Autor rozděluje systém do tří vrstev: **„Mozeček“** (Claude Code běžící na PC), **„Kanál“** (Telegram/Discord jako most mezi telefonem a PC) a **„Velitel“** (uživatel posílající instrukce).<br>*   **Praktické využití:** Systém umožňuje automatizaci úkolů, jako je tvorba landing pages, správa kalendáře nebo spouštění automatizací, aniž by uživatel musel sedět u počítače. Vše probíhá synchronizovaně – zadáte úkol z telefonu, Claude jej vykoná na PC a výsledek je okamžitě dostupný.<br>*   **Dostupnost a náročnost:** Nastavení celého systému zabere přibližně 10 minut. Pro firemní nebo enterprise účty je nutné, aby administrátor funkci Channels v rámci organizace povolil.<br>*   **Závěr:** Tato aktualizace odstraňuje nutnost fyzické přítomnosti u terminálu a mění paradigma práce s AI agenty z „vývojářské záležitosti“ na jednoduchou komunikaci pomocí textových zpráv.</div>
-                    </div>
-                </div>
-            </article>
-
-            <article class="video-card" id="card-0XzNuUJ8YCk">
-                <a href="https://www.youtube.com/watch?v=0XzNuUJ8YCk" class="video-thumb" target="_blank">
-                    <img src="https://img.youtube.com/vi/0XzNuUJ8YCk/hqdefault.jpg" alt="NEW NVIDIA + Adobe AI Update is INSANE! 🔥" loading="lazy">
-                    <span class="duration">8:08</span>
-                </a>
-                <div class="video-info">
-                    <h2><a href="https://www.youtube.com/watch?v=0XzNuUJ8YCk" target="_blank">NEW NVIDIA + Adobe AI Update is INSANE! 🔥</a></h2>
-                    <time>🕐 před 23 hodinami</time>
-                    <p class="summary-brief">Společnosti Nvidia a Adobe spojily své síly a vytvořily komplexní AI systém, který díky propojení kreativních nástrojů, analytiky a marketingových platforem dokáže automatizovaně řídit celé kampaně od plánování až po optimalizaci. Nové modely Adobe Firefly poháněné infrastrukturou Nvidia nabízejí profesionální přesnost, zatímco nástroje jako Nvidia Omniverse umožňují testování reklam ve virtuálních 3D prostředích. Celý proces je řízen autonomními AI agenty, kteří nahrazují práci celých marketingových týmů a výrazně zrychlují tvorbu obsahu.</p>
-                    <button class="expand-btn" onclick="toggleDetail('0XzNuUJ8YCk')">
-                        📖 Zobrazit podrobnosti
-                    </button>
-                    <div class="detail-panel" id="detail-0XzNuUJ8YCk">
-                        <div class="detail-content">Zde je podrobný souhrn klíčových novinek z partnerství společností Nvidia a Adobe:<br><br>*   **Integrace ekosystému:** Adobe a Nvidia propojily své kreativní nástroje (Photoshop, Premiere) s marketingovými platformami (Adobe Experience Platform) a analytikou do jednoho celistvého systému. Tento „mozek“ poháněný GPU od Nvidie umožňuje automatizovat celý marketingový cyklus od plánování a tvorby obsahu až po testování a optimalizaci kampaní.<br>*   **Nové modely Adobe Firefly:** Díky infrastruktuře Nvidie (využití technologií CUDA, NeMo a Neotron) prošly modely Firefly výrazným upgradem. Výsledkem je profesionální kvalita výstupů s mnohem vyšší přesností a kontrolou, což je posouvá za hranice běžných generátorů obrázků.<br>*   **Autonomní AI agenti:** Klíčovou inovací jsou tzv. „Agentic Workflows“ postavené na Nvidia Agent Toolkitu. Místo izolovaných úkolů nyní spolupracuje tým specializovaných AI agentů, kteří bez přestávky plánují kampaně, generují kreativní podklady a automaticky škálují výkon na základě dat.<br>*   **Využití Nvidia Omniverse:** Tato platforma umožňuje značkám vytvářet digitální dvojčata (např. virtuální prodejny). V tomto simulovaném prostředí mohou firmy testovat své reklamní kampaně a reakce publika ještě předtím, než je spustí v reálném světě, což eliminuje dohady o úspěšnosti.<br>*   **Enterprise úroveň zabezpečení:** Celý systém je navržen pro potřeby velkých firem, agentur a studií s důrazem na bezpečnost, kontrolu a škálovatelnost, což z něj činí robustní nástroj pro profesionální nasazení.<br>*   **Změna role marketéra:** Role člověka se mění z „vykonavatele“ (který ručně ovládá Photoshop či plánuje reklamy) na „stratéga a režiséra“. AI nyní přebírá exekutivní část práce, zatímco uživatel určuje směr, rozhoduje a vede celkovou strategii.<br>*   **Konkurenční výhoda:** Na rozdíl od nástrojů typu Midjourney, které slouží pouze ke generování obrázků, Adobe Firefly v kombinaci s infrastrukturou Nvidie vytváří komplexní „AI pracovní sílu“. Nvidia zde figuruje jako klíčový dodavatel hardwarové infrastruktury, na které celý tento ekosystém běží.<br>*   **Dopad na trh:** Předpovídá se, že v blízké budoucnosti nebudou malé firmy potřebovat rozsáhlé marketingové týmy. K obsluze celého procesu bude stačit jeden člověk, který dokáže efektivně řídit tyto AI systémy a využívat jejich automatizační potenciál.</div>
-                    </div>
-                </div>
-            </article>
-
-            <article class="video-card" id="card-g_xXfPHfFuE">
-                <a href="https://www.youtube.com/watch?v=g_xXfPHfFuE" class="video-thumb" target="_blank">
-                    <img src="https://img.youtube.com/vi/g_xXfPHfFuE/hqdefault.jpg" alt="Claude Code FULL COURSE 3 Hours — (Build &amp; Automate Anything)" loading="lazy">
-                    <span class="duration">3:07:14</span>
-                </a>
-                <div class="video-info">
-                    <h2><a href="https://www.youtube.com/watch?v=g_xXfPHfFuE" target="_blank">Claude Code FULL COURSE 3 Hours — (Build &amp; Automate Anything)</a></h2>
-                    <time>🕐 včera</time>
-                    <p class="summary-brief">Claude Code je výkonný nástroj od Anthropicu, který umožňuje i neprogramátorům automatizovat úkoly a vytvářet aplikace pomocí přirozeného jazyka přímo v terminálu. Mezi hlavní novinky patří hlasové ovládání, automatické revize kódu pomocí více AI agentů s integrací do GitHubu a pokročilé nástroje pro zabezpečení projektů.</p>
-                    <button class="expand-btn" onclick="toggleDetail('g_xXfPHfFuE')">
-                        📖 Zobrazit podrobnosti
-                    </button>
-                    <div class="detail-panel" id="detail-g_xXfPHfFuE">
-                        <div class="detail-content">Zde je podrobný souhrn informací o nástroji Claude Code na základě poskytnutých titulků:<br><br>*   **Co je Claude Code:** Jedná se o terminálový AI nástroj od společnosti Anthropic, který funguje jako „vývojář sedící vedle vás“. Není určen pouze programátorům; díky intuitivnímu ovládání jej úspěšně využívají i lidé z netechnických oborů (např. právníci či lékaři) k automatizaci úkolů a tvorbě aplikací.<br>*   **Klíčové novinky a funkce:**<br>    *   **Voice Mode (Hlasový režim):** Aktivuje se příkazem `/voice`. Umožňuje ovládat nástroj hlasem bez nutnosti psaní na klávesnici.<br>    *   **AI Code Review:** Systém využívá více AI agentů současně, kteří kontrolují kód, hledají chyby, logické nedostatky a navrhují opravy. Integruje se přímo s GitHubem (komentáře v pull requestech).<br>    *   **Příkaz `btw`:** Novinka pro udržení „flow“. Umožňuje položit rychlý dotaz během práce, aniž by se přerušilo stávající vlákno konverzace nebo se zaplnila historie.<br>    *   **Security Research Preview:** Nové nástroje pro detekci bezpečnostních zranitelností v kódu, což je klíčové pro aplikace pracující s uživatelskými daty.<br>*   **Pracovní postup (Workflow):** Typický proces zahrnuje zadání přirozeného požadavku (např. vytvoření API), následnou automatickou revizi kódu, vygenerování a spuštění testů (včetně oprav při selhání) a automatické nasazení (deployment) pomocí skriptů.<br>*   **Praktické příklady využití:**<br>    *   Vývoj kompletních systémů (např. Node.js API pro registraci uživatelů a odesílání e-mailů).<br>    *   Tvorba dashboardů pro obsahové kalendáře nebo vývoj chatbotů pro webové stránky.<br>    *   Refaktorizace stávajících Python skriptů (např. pro scraping dat) za účelem zvýšení rychlosti a přidání logování chyb.<br>*   **Technické srovnání:** Claude Code se od nástrojů jako GitHub Copilot nebo Cursor liší zaměřením na komplexní automatizaci celých workflow, schopností pracovat s více soubory najednou a autonomními smyčkami (psaní, testování, oprava).<br>*   **Bezpečnostní upozornění:** Nástroj není neomylný a může dojít k chybám (např. přepsání důležitého kódu). Autor zdůrazňuje nutnost zálohování, lidského dohledu a kritického posouzení výstupů AI.<br>*   **Dostupnost:** Hlasový režim je aktuálně dostupný pro omezenou skupinu uživatelů a probíhá jeho postupné rozšiřování.<br>*   **Filozofie nástroje:** Claude Code není jen pomocník pro doplňování kódu, ale komplexní systém, který umožňuje stavět, testovat a nasazovat aplikace výhradně pomocí přirozeného jazyka.</div>
-                    </div>
-                </div>
-            </article>
-
-            <article class="video-card" id="card-_ByLmpnhpas">
-                <a href="https://www.youtube.com/watch?v=_ByLmpnhpas" class="video-thumb" target="_blank">
-                    <img src="https://img.youtube.com/vi/_ByLmpnhpas/hqdefault.jpg" alt="New OpenAI Codex Update is INSANE!" loading="lazy">
-                    <span class="duration">8:03</span>
-                </a>
-                <div class="video-info">
-                    <h2><a href="https://www.youtube.com/watch?v=_ByLmpnhpas" target="_blank">New OpenAI Codex Update is INSANE!</a></h2>
-                    <time>🕐 včera</time>
-                    <p class="summary-brief">OpenAI představilo zásadní aktualizaci pro svůj kódovací nástroj Codex, který nyní umožňuje hlavnímu agentovi vytvářet tým specializovaných „sub-agentů“. Ti pracují paralelně na dílčích úkolech, čímž efektivně řeší problémy s omezenou pamětí (kontextovým oknem) a umožňují mnohem rychlejší vývoj či refaktorizaci rozsáhlých projektů.</p>
-                    <button class="expand-btn" onclick="toggleDetail('_ByLmpnhpas')">
-                        📖 Zobrazit podrobnosti
-                    </button>
-                    <div class="detail-panel" id="detail-_ByLmpnhpas">
-                        <div class="detail-content">Zde je podrobný souhrn aktualizace OpenAI Codex:<br><br>*   **Revoluční změna architektury:** OpenAI představila funkci „sub-agentů“, která transformuje Codex z jednoho asistenta na systém schopný řídit celý tým specializovaných AI pracovníků. Místo lineárního řešení úkolů nyní hlavní agent vytvoří plán a deleguje dílčí části práce na menší agenty, kteří pracují paralelně v izolovaných sandboxed prostředích.<br>*   **Řešení limitů kontextového okna:** Hlavním technickým přínosem je efektivní správa paměti; zatímco dříve docházelo při komplexních úkolech k zahlcení kontextu a zapomínání, nyní má každý sub-agent vlastní kontext a paměť, což umožňuje hlavnímu agentovi soustředit se pouze na strategické řízení celého projektu.<br>*   **Konkrétní příklady využití:**<br>    *   **Vývoj SaaS aplikace:** Codex automaticky rozdělí práci mezi agenty pro backend, frontend, autentizaci a deployment, kteří pracují současně.<br>    *   **Refaktorizace kódu:** Při přechodu na TypeScript systém nasadí specializované agenty pro migraci, opravu testů, správu závislostí a aktualizaci dokumentace.<br>    *   **Debugging:** Při selhání testů systém spustí testovací analyzátor, opraváře chyb a revizora kódu, kteří problém řeší z různých úhlů najednou.<br>*   **Technické detaily a ovládání:** Systém je dostupný přes příkazovou řádku pomocí příkazu `codex exec`, po jehož zadání systém automaticky identifikuje potřebu sub-agentů a sám je vytvoří. Aktuální verze modelu dosahuje rychlosti generování kódu přes 1 000 tokenů za sekundu, což v kombinaci s paralelním zpracováním dramaticky zrychluje vývoj.<br>*   **Konkurenční prostředí:** OpenAI tímto krokem reaguje na silnou konkurenci nástrojů jako Claude Code, Cursor a GitHub Copilot, přičemž se snaží posunout AI z role „pokročilého našeptávače“ do role autonomního inženýrského týmu.<br>*   **Budoucí vize:** Tato architektura sub-agentů není omezena pouze na programování, ale představuje univerzální vzor pro komplexní úkoly v marketingu, SEO či zákaznické podpoře. Cílem OpenAI je vytvořit plně autonomní systémy, kde uživatel zadá projektový záměr a AI se postará o kompletní realizaci od návrhu až po nasazení.</div>
-                    </div>
-                </div>
-            </article>
-
-            <article class="video-card" id="card-oeUOGBJZdl0">
-                <a href="https://www.youtube.com/watch?v=oeUOGBJZdl0" class="video-thumb" target="_blank">
-                    <img src="https://img.youtube.com/vi/oeUOGBJZdl0/hqdefault.jpg" alt="Build Anything with Nemotron 3 Here&#39;s How!" loading="lazy">
-                    <span class="duration">8:14</span>
-                </a>
-                <div class="video-info">
-                    <h2><a href="https://www.youtube.com/watch?v=oeUOGBJZdl0" target="_blank">Build Anything with Nemotron 3 Here&#39;s How!</a></h2>
-                    <time>🕐 včera</time>
-                    <p class="summary-brief">Nvidia představila model Nemotron 3 Super, který díky architektuře Mixture of Experts a hybridnímu systému Mamba Transformer nabízí vysoký výkon a 2,2× vyšší rychlost při zachování nízkých nákladů. Klíčovou inovací je kontextové okno o velikosti 1 milionu tokenů, které umožňuje agentům efektivně zpracovávat rozsáhlé firemní dokumentace či kódy v rámci jediného promptu. Model je plně otevřený (open weights), což z něj činí ideální infrastrukturu pro vývoj komplexních a automatizovaných AI agentů.</p>
-                    <button class="expand-btn" onclick="toggleDetail('oeUOGBJZdl0')">
-                        📖 Zobrazit podrobnosti
-                    </button>
-                    <div class="detail-panel" id="detail-oeUOGBJZdl0">
-                        <div class="detail-content">Zde je podrobný souhrn informací o modelu Nvidia Nemotron 3 Super:<br><br>*   **Představení modelu:** Nvidia uvedla na trh model Nemotron 3 Super, což je open-weight velký jazykový model (LLM) navržený primárně pro autonomní AI agenty, nikoliv pouze pro chatování. Jeho hlavní výhodou je schopnost plánovat, provádět komplexní úkoly a udržovat kontext v rámci celých obchodních procesů.<br>*   **Technické parametry a architektura:** Model disponuje 120 miliardami parametrů, přičemž díky architektuře „Mixture of Experts“ (MoE) aktivuje pouze 12 miliard parametrů na jeden úkol, což zajišťuje vysokou rychlost a efektivitu. Využívá hybridní architekturu „Mamba Transformer“, kde Mamba vrstvy efektivně zpracovávají dlouhé sekvence a Transformer vrstvy zajišťují hluboké uvažování.<br>*   **Klíčové funkce:** Model nabízí masivní kontextové okno o velikosti 1 milionu tokenů, což umožňuje nahrát kompletní kódové základny, archivy dokumentů nebo roční historii e-mailů. Díky technologii „multi-token prediction“ (generování více tokenů najednou) dosahuje model o 2,2× vyšší rychlosti oproti srovnatelným modelům.<br>*   **Způsoby nasazení:** Model je plně otevřený (open-weight, open-data, open-recipes). Uživatelé jej mohou provozovat lokálně (přes Hugging Face), využít pro podnikové nasazení prostřednictvím Nvidia NIM a NeMo, nebo nejjednodušší cestou přes platformu Open Router, která umožňuje okamžité API volání.<br>*   **Praktické příklady využití:**<br>    *   **AI výzkumný agent:** Analýza trendů v oboru s využitím vlastních dat (např. přepisy videí, FAQ) pro tvorbu personalizovaných reportů.<br>    *   **Obsahový pipeline:** Automatické přetvoření jednoho vstupu (např. přepis videa) na pět různých formátů (Twitter vlákno, newsletter, LinkedIn post, skript pro video).<br>    *   **Kódovací agent:** Správa a úprava komplexních kódových základen s plným kontextem, což eliminuje chyby vznikající při ztrátě paměti modelu.<br>    *   **Agentní řetězce:** Propojení více agentů do automatizovaného workflow (výzkum -&gt; psaní skriptu -&gt; tvorba obsahu -&gt; plánování kalendáře).<br>*   **Doporučený postup:** Pro rychlý start se doporučuje využít Open Router, kde lze model najít pod označením „Nvidia Nemotron 3 Super 120B A12B“. V rámci promptování je vhodné definovat agentovi konkrétní roli a rozdělit úkol do logických kroků (např. identifikace problémů, tvorba video hooků, návrh řešení a e-mailová sekvence), což díky velkému kontextu zajistí vysoce relevantní a provázané výstupy.</div>
-                    </div>
-                </div>
-            </article>
-
-            <article class="video-card" id="card-6mjnfAz5wlQ">
-                <a href="https://www.youtube.com/watch?v=6mjnfAz5wlQ" class="video-thumb" target="_blank">
-                    <img src="https://img.youtube.com/vi/6mjnfAz5wlQ/hqdefault.jpg" alt="NEW Google AI Updates are INSANE! 🤯" loading="lazy">
-                    <span class="duration">8:31</span>
-                </a>
-                <div class="video-info">
-                    <h2><a href="https://www.youtube.com/watch?v=6mjnfAz5wlQ" target="_blank">NEW Google AI Updates are INSANE! 🤯</a></h2>
-                    <time>🕐 včera</time>
-                    <p class="summary-brief">Google integroval model Gemini do celého balíku Workspace (Gmail, Docs, Sheets, Slides, Drive), čímž vytvořil komplexní automatizovaný systém pro efektivní práci bez nutnosti přepínat mezi aplikacemi. Současně byla aktualizována aplikace Google Mapy o funkci „Ask Maps“, která umožňuje pomocí přirozeného jazyka vyhledávat a analyzovat data o reálném světě, jako jsou recenze, vytíženost míst či logistika. Tato propojená technologie zásadně mění způsob, jakým uživatelé provádějí výzkum, analyzují data a vytvářejí výstupy.</p>
-                    <button class="expand-btn" onclick="toggleDetail('6mjnfAz5wlQ')">
-                        📖 Zobrazit podrobnosti
-                    </button>
-                    <div class="detail-panel" id="detail-6mjnfAz5wlQ">
-                        <div class="detail-content">Zde je podrobný souhrn klíčových aktualizací ekosystému Google poháněných umělou inteligencí Gemini:<br><br>*   **Integrace Gemini do Google Workspace:** Model Gemini je nyní nativně integrován do aplikací Gmail, Docs, Sheets, Slides a Drive, což umožňuje automatizaci pracovních postupů bez nutnosti přepínat mezi jednotlivými nástroji.<br>*   **Nová funkce „Ask Maps“:** Google Maps se mění z navigačního nástroje na „výzkumného asistenta“. Uživatelé mohou klást komplexní dotazy v přirozeném jazyce (např. hledání prostor pro akce s vysokou návštěvností a dobrým dopravním spojením), přičemž AI analyzuje recenze, vytíženost a data o lokalitě.<br>*   **Automatizace v Google Sheets:** Gemini dokáže vytvářet celé tabulky a dashboardy „na zelené louce“ tím, že čerpá data přímo z vašich e-mailů v Gmailu a souborů na Disku. Příkladem je automatické vytvoření „Community Growth Trackeru“ nebo analýzy konkurence včetně vizuálních grafů a souhrnných tabulek.<br>*   **Tvorba obsahu v Docs a Slides:** V aplikaci Slides lze pomocí promptu vygenerovat kompletní strukturovanou prezentaci (pitch deck) během pěti minut, což dříve zabralo hodiny. V Dokumentech Google AI vytváří komplexní strategie (např. obsahové a outreach strategie) s jasným časovým harmonogramem a akčními kroky.<br>*   **Imerzivní navigace:** Aktualizace Google Maps přináší vylepšenou vizualizaci, včetně 3D budov, detailního vykreslování terénu, navigace v pruzích a kontextuálních informací o dopravě v reálném čase.<br>*   **Sjednocený pracovní systém:** Hlavním přínosem aktualizace je propojení „dat z reálného světa“ (Maps) s „rozhodovacím a exekučním systémem“ (Workspace). Uživatelé tak mohou přejít od roztříštěných tabulek a e-mailů k plně automatizovaným workflow, které šetří čas při plánování, analýze i tvorbě prezentací.<br>*   **Technické poznámky:** Ačkoliv video nespecifikuje konkrétní verze modelu (např. Gemini 1.5 Pro/Flash) ani ceník, zdůrazňuje, že tyto funkce jsou nyní dostupné jako nativní součást stávajícího prostředí Google, čímž eliminují potřebu externích nástrojů pro analýzu dat a správu projektů.</div>
-                    </div>
-                </div>
-            </article>
-
-            <article class="video-card" id="card-foXDDxSbZ7k">
-                <a href="https://www.youtube.com/watch?v=foXDDxSbZ7k" class="video-thumb" target="_blank">
-                    <img src="https://img.youtube.com/vi/foXDDxSbZ7k/hqdefault.jpg" alt="NEW Claude Code Update is INSANE!" loading="lazy">
-                    <span class="duration">9:30</span>
-                </a>
-                <div class="video-info">
-                    <h2><a href="https://www.youtube.com/watch?v=foXDDxSbZ7k" target="_blank">NEW Claude Code Update is INSANE!</a></h2>
-                    <time>🕐 včera</time>
-                    <p class="summary-brief">Aktualizace Claude Code od Anthropic přináší revoluční možnost vzdáleného ovládání vašeho AI vývojářského agenta přímo z mobilního telefonu, což umožňuje spouštět a monitorovat komplexní úlohy mimo počítač. Novinkou je také režim „effort max“ pro hlubší uvažování AI při řešení náročných programátorských problémů. Celý proces přitom zůstává bezpečný, protože kód běží lokálně ve vašem terminálu a přes servery Anthropic se přenášejí pouze instrukce.</p>
-                    <button class="expand-btn" onclick="toggleDetail('foXDDxSbZ7k')">
-                        📖 Zobrazit podrobnosti
-                    </button>
-                    <div class="detail-panel" id="detail-foXDDxSbZ7k">
-                        <div class="detail-content">Zde je podrobný souhrn klíčových novinek a funkcí aktualizace nástroje Claude Code od společnosti Anthropic:<br><br>*   **Claude Code:** Jedná se o pokročilého AI vývojářského agenta, který běží přímo ve vašem terminálu (příkazovém řádku). Na rozdíl od běžných chatbotů dokáže samostatně číst soubory, psát kód, spouštět příkazy, opravovat chyby a refaktorovat celé projekty přímo ve vašem lokálním prostředí.<br>*   **Funkce Remote Control (Vzdálené ovládání):** Umožňuje ovládat běžící instanci Claude Code z mobilního telefonu. Po spuštění příkazu v terminálu se vygeneruje QR kód, po jehož naskenování můžete z telefonu sledovat logy, schvalovat změny v souborech, zadávat nové instrukce nebo monitorovat dlouhotrvající buildy, aniž byste museli být u počítače.<br>*   **Bezpečnost a soukromí:** Klíčovou technickou výhodou je, že samotný kód nikdy neopouští váš počítač. Přes servery Anthropicu putují pouze textové zprávy (instrukce), zatímco veškerá výpočetní činnost a manipulace se soubory probíhá lokálně na vašem stroji.<br>*   **Režim Effort Max:** Nový režim hlubokého uvažování, který aktivujete příkazem `/effort max`. AI v tomto módu využívá více tokenů, provádí důkladnější analýzu problému krok za krokem a je vhodný pro komplexní úkoly, jako je ladění race conditions, architektonická rozhodnutí nebo složité algoritmy.<br>*   **Konfigurační soubor `claude.md`:** Doporučený postup pro zvýšení efektivity. Tento soubor slouží jako „onboarding dokument“ pro AI, do kterého definujete strukturu projektu, pravidla kódování a používané technologie, což výrazně zlepšuje kvalitu výstupů agenta.<br>*   **Agentní pracovní postupy (Workflows):** Claude Code lze využít k automatizaci celých pipeline – od napsání kódu, přes vytvoření a spuštění testů, až po opravu chyb a nasazení aplikace, což umožňuje agentovi pracovat autonomně bez neustálého dohledu.<br>*   **Technická omezení:** Aktuálně je vyžadována autentizace přes GitHub, každá instance podporuje pouze jedno vzdálené spojení a relace je vázána na otevřené okno terminálu. Funkce jsou v současnosti ve fázi „research preview“ a primárně dostupné pro uživatele tarifu Pro.<br>*   **Konkurenční prostředí:** Nástroj se řadí mezi špičku v oblasti AI vývoje, kde soupeří s platformami jako Cursor, GitHub Copilot nebo OpenClaude, přičemž trendem je přechod od pouhých asistentů k plně autonomním vývojářským agentům.</div>
-                    </div>
-                </div>
-            </article>
-
+            </div>
         </div>
     </div>
+
+    <div class="video-card">
+        <div class="video-thumb">📺</div>
+        <div class="video-info">
+            <h3 class="video-title">NEW Google AI Updates are INSANE! 🤯</h3>
+            <div class="video-meta">
+                <span>📅 20.03.2026</span>
+                <span>⏱ 08:31</span>
+            </div>
+            <div class="video-summary">
+                <p>Video o hlavních novinkách v AI a technologiích. Klikněte na 'Zobrazit podrobnosti' pro více informací.</p>
+                <button class="toggle-btn" onclick="toggleDetail(this)">📖 Zobrazit podrobnosti</button>
+                <div class="video-detail">
+                    <p><strong>Video ID:</strong> 6mjnfAz5wlQ</p>
+                    <p><strong>Délka:</strong> 08:31</p>
+                    <p><strong>Publikováno:</strong> 20.03.2026</p>
+                    <p><strong>URL:</strong> <a href="https://www.youtube.com/watch?v=6mjnfAz5wlQ" target="_blank" style="color: #5b9bd5;">YouTube</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="video-card">
+        <div class="video-thumb">📺</div>
+        <div class="video-info">
+            <h3 class="video-title">NEW Claude Code Update is INSANE!</h3>
+            <div class="video-meta">
+                <span>📅 20.03.2026</span>
+                <span>⏱ 09:30</span>
+            </div>
+            <div class="video-summary">
+                <p>Video o hlavních novinkách v AI a technologiích. Klikněte na 'Zobrazit podrobnosti' pro více informací.</p>
+                <button class="toggle-btn" onclick="toggleDetail(this)">📖 Zobrazit podrobnosti</button>
+                <div class="video-detail">
+                    <p><strong>Video ID:</strong> foXDDxSbZ7k</p>
+                    <p><strong>Délka:</strong> 09:30</p>
+                    <p><strong>Publikováno:</strong> 20.03.2026</p>
+                    <p><strong>URL:</strong> <a href="https://www.youtube.com/watch?v=foXDDxSbZ7k" target="_blank" style="color: #5b9bd5;">YouTube</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="video-card">
+        <div class="video-thumb">📺</div>
+        <div class="video-info">
+            <h3 class="video-title">After the Storm: Public Safety, Project Alpha & AI | March 20, 2026</h3>
+            <div class="video-meta">
+                <span>📅 20.03.2026</span>
+                <span>⏱ 33:14</span>
+            </div>
+            <div class="video-summary">
+                <p>Video o hlavních novinkách v AI a technologiích. Klikněte na 'Zobrazit podrobnosti' pro více informací.</p>
+                <button class="toggle-btn" onclick="toggleDetail(this)">📖 Zobrazit podrobnosti</button>
+                <div class="video-detail">
+                    <p><strong>Video ID:</strong> 7Ijaf2HFvjg</p>
+                    <p><strong>Délka:</strong> 33:14</p>
+                    <p><strong>Publikováno:</strong> 20.03.2026</p>
+                    <p><strong>URL:</strong> <a href="https://www.youtube.com/watch?v=7Ijaf2HFvjg" target="_blank" style="color: #5b9bd5;">YouTube</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="video-card">
+        <div class="video-thumb">📺</div>
+        <div class="video-info">
+            <h3 class="video-title">Nvidia's New NemoClaw + OpenClaw Update Free!</h3>
+            <div class="video-meta">
+                <span>📅 19.03.2026</span>
+                <span>⏱ 07:16</span>
+            </div>
+            <div class="video-summary">
+                <p>Video o hlavních novinkách v AI a technologiích. Klikněte na 'Zobrazit podrobnosti' pro více informací.</p>
+                <button class="toggle-btn" onclick="toggleDetail(this)">📖 Zobrazit podrobnosti</button>
+                <div class="video-detail">
+                    <p><strong>Video ID:</strong> vabRab9F0w4</p>
+                    <p><strong>Délka:</strong> 07:16</p>
+                    <p><strong>Publikováno:</strong> 19.03.2026</p>
+                    <p><strong>URL:</strong> <a href="https://www.youtube.com/watch?v=vabRab9F0w4" target="_blank" style="color: #5b9bd5;">YouTube</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="video-card">
+        <div class="video-thumb">📺</div>
+        <div class="video-info">
+            <h3 class="video-title">NEW Manus AI Computer Update is INSANE! 🤯</h3>
+            <div class="video-meta">
+                <span>📅 19.03.2026</span>
+                <span>⏱ 08:05</span>
+            </div>
+            <div class="video-summary">
+                <p>Video o hlavních novinkách v AI a technologiích. Klikněte na 'Zobrazit podrobnosti' pro více informací.</p>
+                <button class="toggle-btn" onclick="toggleDetail(this)">📖 Zobrazit podrobnosti</button>
+                <div class="video-detail">
+                    <p><strong>Video ID:</strong> SWIk9g6-zBM</p>
+                    <p><strong>Délka:</strong> 08:05</p>
+                    <p><strong>Publikováno:</strong> 19.03.2026</p>
+                    <p><strong>URL:</strong> <a href="https://www.youtube.com/watch?v=SWIk9g6-zBM" target="_blank" style="color: #5b9bd5;">YouTube</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="video-card">
+        <div class="video-thumb">📺</div>
+        <div class="video-info">
+            <h3 class="video-title">New OpenClaw + Minimax M 2.7 + OpenClaw + Ollama Update!</h3>
+            <div class="video-meta">
+                <span>📅 19.03.2026</span>
+                <span>⏱ 07:25</span>
+            </div>
+            <div class="video-summary">
+                <p>Video o hlavních novinkách v AI a technologiích. Klikněte na 'Zobrazit podrobnosti' pro více informací.</p>
+                <button class="toggle-btn" onclick="toggleDetail(this)">📖 Zobrazit podrobnosti</button>
+                <div class="video-detail">
+                    <p><strong>Video ID:</strong> 7Ju87DdiE0Y</p>
+                    <p><strong>Délka:</strong> 07:25</p>
+                    <p><strong>Publikováno:</strong> 19.03.2026</p>
+                    <p><strong>URL:</strong> <a href="https://www.youtube.com/watch?v=7Ju87DdiE0Y" target="_blank" style="color: #5b9bd5;">YouTube</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="video-card">
+        <div class="video-thumb">📺</div>
+        <div class="video-info">
+            <h3 class="video-title">Nvidia's New FREE NemoClaw + OpenClaw Update!</h3>
+            <div class="video-meta">
+                <span>📅 18.03.2026</span>
+                <span>⏱ 07:59</span>
+            </div>
+            <div class="video-summary">
+                <p>Video o hlavních novinkách v AI a technologiích. Klikněte na 'Zobrazit podrobnosti' pro více informací.</p>
+                <button class="toggle-btn" onclick="toggleDetail(this)">📖 Zobrazit podrobnosti</button>
+                <div class="video-detail">
+                    <p><strong>Video ID:</strong> t700StIhtZo</p>
+                    <p><strong>Délka:</strong> 07:59</p>
+                    <p><strong>Publikováno:</strong> 18.03.2026</p>
+                    <p><strong>URL:</strong> <a href="https://www.youtube.com/watch?v=t700StIhtZo" target="_blank" style="color: #5b9bd5;">YouTube</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="video-card">
+        <div class="video-thumb">📺</div>
+        <div class="video-info">
+            <h3 class="video-title">AI Breakthroughs March 2026 🚀 Exciting Innovations Unveiled!</h3>
+            <div class="video-meta">
+                <span>📅 14.03.2026</span>
+                <span>⏱ 01:35</span>
+            </div>
+            <div class="video-summary">
+                <p>Video o hlavních novinkách v AI a technologiích. Klikněte na 'Zobrazit podrobnosti' pro více informací.</p>
+                <button class="toggle-btn" onclick="toggleDetail(this)">📖 Zobrazit podrobnosti</button>
+                <div class="video-detail">
+                    <p><strong>Video ID:</strong> a_8PPgYPpaQ</p>
+                    <p><strong>Délka:</strong> 01:35</p>
+                    <p><strong>Publikováno:</strong> 14.03.2026</p>
+                    <p><strong>URL:</strong> <a href="https://www.youtube.com/watch?v=a_8PPgYPpaQ" target="_blank" style="color: #5b9bd5;">YouTube</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+    
     <footer>
-        <p>Automaticky generováno OpenClaw agentem | Data: yt-dlp | Shrnutí: Google Gemini 3.1 Flash Lite</p>
+        <p>Automaticky generováno OpenClaw agentem | Poznámka: Podrobná AI shrnutí budou přidána po obnovení Google API limitu (zítra ráno).</p>
     </footer>
+    
     <script>
-        function toggleDetail(id) {
-            const panel = document.getElementById('detail-' + id);
-            const btn = panel.previousElementSibling;
-            const isOpen = panel.classList.contains('open');
-            panel.classList.toggle('open');
-            btn.classList.toggle('active');
-            btn.textContent = isOpen ? '📖 Zobrazit podrobnosti' : '📕 Skrýt podrobnosti';
+        function toggleDetail(btn) {
+            const detail = btn.nextElementSibling;
+            detail.classList.toggle("visible");
+            btn.textContent = detail.classList.contains("visible") ? "📬 Skrýt podrobnosti" : "📖 Zobrazit podrobnosti";
         }
     </script>
 </body>
