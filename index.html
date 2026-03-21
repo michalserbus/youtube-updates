@@ -10,207 +10,228 @@
         .video-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px; }
         .video-card { background: #f5f7fa; border-radius: 10px; overflow: hidden; transition: transform 0.2s; }
         .video-card:hover { transform: translateY(-3px); }
-        .video-container { display: flex; gap: 15px; padding: 15px; }
-        .video-thumb { width: 160px; flex-shrink: 0; }
-        .video-thumb img { width: 100%; border-radius: 8px; display: block; }
-        .video-info { flex: 1; }
-        .video-title { font-size: 1.1em; margin: 0 0 5px 0; color: #222222; }
-        .video-meta { display: flex; justify-content: space-between; color: #555; font-size: 0.9em; margin-bottom: 5px; }
-        .video-age { color: #2563eb; font-weight: bold; }
-        .video-summary { font-size: 0.9em; color: #333; line-height: 1.4; }
-        .video-detail { margin-top: 10px; padding-top: 10px; border-top: 1px solid #ddd; font-size: 0.85em; color: #555; line-height: 1.6; }
+        .video-thumb { width: 100%; aspect-ratio: 16/9; background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%); display: flex; align-items: center; justify-content: center; font-size: 2em; }
+        .video-info { padding: 15px; }
+        .video-title { font-size: 1.1em; margin: 0 0 10px 0; color: #222222; }
+        .video-meta { display: flex; justify-content: space-between; color: #555; font-size: 0.9em; }
+        .video-summary { margin-top: 10px; font-size: 0.95em; color: #333; line-height: 1.5; }
+        .video-detail { margin-top: 10px; font-size: 0.9em; color: #555; display: none; padding-top: 10px; border-top: 1px solid #333; }
+        .toggle-btn { background: #2563eb; color: #222222; border: none; padding: 8px 15px; border-radius: 5px; cursor: pointer; margin-top: 10px; }
+        .toggle-btn:hover { background: #1d4ed8; }
+        .visible { display: block !important; }
         footer { text-align: center; margin-top: 30px; color: #555; font-size: 0.85em; }
+        .badge { background: #1d4ed8; padding: 2px 8px; border-radius: 10px; font-size: 0.8em; }
     </style>
 </head>
 <body>
     <div class="header">
         <h1>🎬 AI Video Updates</h1>
-        <p>Kanal: <span class="badge">JulianGoldieSEO</span> | Posledních 24 hodin | 7 videí</p>
+        <p>Kanal: <span class="badge">JulianGoldieSEO</span> | Posledních 24 hodin | 9 videí</p>
     </div>
     
     <div class="video-grid">
 
     <div class="video-card">
-        <div class="video-container">
-            <a href="https://www.youtube.com/watch?v=oeUOGBJZdl0" class="video-thumb" target="_blank">
-                <img src="https://img.youtube.com/vi/oeUOGBJZdl0/hqdefault.jpg" alt="Build Anything with Nemotron 3 Here's How!" loading="lazy">
-            </a>
-            <div class="video-info">
-                <h3 class="video-title">Build Anything with Nemotron 3 Here's How!</h3>
-                <div class="video-meta">
-                    <span class="video-age">20.03.2026</span>
-                    <span>⏱ 08:14</span>
-                </div>
-        <div class="video-container">
-            <a href="https://www.youtube.com/watch?v=oeUOGBJZdl0" class="video-thumb" target="_blank">
-                <img src="https://img.youtube.com/vi/oeUOGBJZdl0/hqdefault.jpg" alt="Build Anything with Nemotron 3 Here's How!" loading="lazy">
-            </a>
-            <div class="video-info">
-                <h3 class="video-title">Build Anything with Nemotron 3 Here's How!</h3>
-                <div class="video-meta">
-                    <span class="video-age">20.03.2026</span>
-                    <span>⏱ 08:14</span>
-                </div>
-                <p class="video-summary">Video o hlavních novinkách v AI a technologiích.</p>
-                <div class="video-detail">V tomto videu se dozvíte o nejnovějších AI novinkách. Video obsahuje informace o nových modelech, nástrojích a technologiích.</div>
+        <div class="video-thumb">📺</div>
+        <div class="video-info">
+            <h3 class="video-title">Build Anything with Nemotron 3 Here's How!</h3>
+            <div class="video-meta">
+                <span>📅 20.03.2026</span>
+                <span>⏱ 08:14</span>
             </div>
-
-<div class="video-card">
-        <div class="video-container">
-            <a href="https://www.youtube.com/watch?v=6mjnfAz5wlQ" class="video-thumb" target="_blank">
-                <img src="https://img.youtube.com/vi/6mjnfAz5wlQ/hqdefault.jpg" alt="NEW Google AI Updates are INSANE! 🤯" loading="lazy">
-            </a>
-            <div class="video-info">
-                <h3 class="video-title">NEW Google AI Updates are INSANE! 🤯</h3>
-                <div class="video-meta">
-                    <span class="video-age">20.03.2026</span>
-                    <span>⏱ 08:31</span>
+            <div class="video-summary">
+                <p>Video o hlavních novinkách v AI a technologiích. Klikněte na 'Zobrazit podrobnosti' pro více informací.</p>
+                <button class="toggle-btn" onclick="toggleDetail(this)">📖 Zobrazit podrobnosti</button>
+                <div class="video-detail">
+                    <p><strong>Video ID:</strong> oeUOGBJZdl0</p>
+                    <p><strong>Délka:</strong> 08:14</p>
+                    <p><strong>Publikováno:</strong> 20.03.2026</p>
+                    <p><strong>URL:</strong> <a href="https://www.youtube.com/watch?v=oeUOGBJZdl0" target="_blank" style="color: #2563eb;">YouTube</a></p>
                 </div>
-        <div class="video-container">
-            <a href="https://www.youtube.com/watch?v=6mjnfAz5wlQ" class="video-thumb" target="_blank">
-                <img src="https://img.youtube.com/vi/6mjnfAz5wlQ/hqdefault.jpg" alt="NEW Google AI Updates are INSANE! 🤯" loading="lazy">
-            </a>
-            <div class="video-info">
-                <h3 class="video-title">NEW Google AI Updates are INSANE! 🤯</h3>
-                <div class="video-meta">
-                    <span class="video-age">20.03.2026</span>
-                    <span>⏱ 08:31</span>
-                </div>
-                <p class="video-summary">Video o hlavních novinkách v AI a technologiích.</p>
-                <div class="video-detail">V tomto videu se dozvíte o nejnovějších AI novinkách. Video obsahuje informace o nových modelech, nástrojích a technologiích.</div>
-            </div>
-
-<div class="video-card">
-        <div class="video-container">
-            <a href="https://www.youtube.com/watch?v=foXDDxSbZ7k" class="video-thumb" target="_blank">
-                <img src="https://img.youtube.com/vi/foXDDxSbZ7k/hqdefault.jpg" alt="NEW Claude Code Update is INSANE!" loading="lazy">
-            </a>
-            <div class="video-info">
-                <h3 class="video-title">NEW Claude Code Update is INSANE!</h3>
-                <div class="video-meta">
-                    <span class="video-age">20.03.2026</span>
-                    <span>⏱ 09:30</span>
-                </div>
-        <div class="video-container">
-            <a href="https://www.youtube.com/watch?v=foXDDxSbZ7k" class="video-thumb" target="_blank">
-                <img src="https://img.youtube.com/vi/foXDDxSbZ7k/hqdefault.jpg" alt="NEW Claude Code Update is INSANE!" loading="lazy">
-            </a>
-            <div class="video-info">
-                <h3 class="video-title">NEW Claude Code Update is INSANE!</h3>
-                <div class="video-meta">
-                    <span class="video-age">20.03.2026</span>
-                    <span>⏱ 09:30</span>
-                </div>
-                <p class="video-summary">Video o hlavních novinkách v AI a technologiích.</p>
-                <div class="video-detail">V tomto videu se dozvíte o nejnovějších AI novinkách. Video obsahuje informace o nových modelech, nástrojích a technologiích.</div>
-            </div>
-
-<div class="video-card">
-        <div class="video-container">
-            <a href="https://www.youtube.com/watch?v=7Ijaf2HFvjg" class="video-thumb" target="_blank">
-                <img src="https://img.youtube.com/vi/7Ijaf2HFvjg/hqdefault.jpg" alt="After the Storm: Public Safety, Project Alpha & AI | March 20, 2026" loading="lazy">
-            </a>
-            <div class="video-info">
-                <h3 class="video-title">After the Storm: Public Safety, Project Alpha & AI | March 20, 2026</h3>
-                <div class="video-meta">
-                    <span class="video-age">20.03.2026</span>
-                    <span>⏱ 33:14</span>
-                </div>
-        <div class="video-container">
-            <a href="https://www.youtube.com/watch?v=7Ijaf2HFvjg" class="video-thumb" target="_blank">
-                <img src="https://img.youtube.com/vi/7Ijaf2HFvjg/hqdefault.jpg" alt="After the Storm: Public Safety, Project Alpha & AI | March 20, 2026" loading="lazy">
-            </a>
-            <div class="video-info">
-                <h3 class="video-title">After the Storm: Public Safety, Project Alpha & AI | March 20, 2026</h3>
-                <div class="video-meta">
-                    <span class="video-age">20.03.2026</span>
-                    <span>⏱ 33:14</span>
-                </div>
-                <p class="video-summary">Video o hlavních novinkách v AI a technologiích.</p>
-                <div class="video-detail">V tomto videu se dozvíte o nejnovějších AI novinkách. Video obsahuje informace o nových modelech, nástrojích a technologiích.</div>
-            </div></div>
             </div>
         </div>
     </div>
 
     <div class="video-card">
-        <div class="video-container">
-            <a href="https://www.youtube.com/watch?v=6mjnfAz5wlQ" class="video-thumb" target="_blank">
-                <img src="https://img.youtube.com/vi/6mjnfAz5wlQ/hqdefault.jpg" alt="NEW Google AI Updates are INSANE! 🤯" loading="lazy">
-            </a>
-            <div class="video-info">
-                <h3 class="video-title">NEW Google AI Updates are INSANE! 🤯</h3>
-                <div class="video-meta">
-                    <span class="video-age">20.03.2026</span>
-                    <span>⏱ 08:31</span>
+        <div class="video-thumb">📺</div>
+        <div class="video-info">
+            <h3 class="video-title">NEW Google AI Updates are INSANE! 🤯</h3>
+            <div class="video-meta">
+                <span>📅 20.03.2026</span>
+                <span>⏱ 08:31</span>
+            </div>
+            <div class="video-summary">
+                <p>Video o hlavních novinkách v AI a technologiích. Klikněte na 'Zobrazit podrobnosti' pro více informací.</p>
+                <button class="toggle-btn" onclick="toggleDetail(this)">📖 Zobrazit podrobnosti</button>
+                <div class="video-detail">
+                    <p><strong>Video ID:</strong> 6mjnfAz5wlQ</p>
+                    <p><strong>Délka:</strong> 08:31</p>
+                    <p><strong>Publikováno:</strong> 20.03.2026</p>
+                    <p><strong>URL:</strong> <a href="https://www.youtube.com/watch?v=6mjnfAz5wlQ" target="_blank" style="color: #2563eb;">YouTube</a></p>
                 </div>
-        <div class="video-container">
-            <a href="https://www.youtube.com/watch?v=6mjnfAz5wlQ" class="video-thumb" target="_blank">
-                <img src="https://img.youtube.com/vi/6mjnfAz5wlQ/hqdefault.jpg" alt="NEW Google AI Updates are INSANE! 🤯" loading="lazy">
-            </a>
-            <div class="video-info">
-                <h3 class="video-title">NEW Google AI Updates are INSANE! 🤯</h3>
-                <div class="video-meta">
-                    <span class="video-age">20.03.2026</span>
-                    <span>⏱ 08:31</span>
-                </div>
-                <p class="video-summary">Video o hlavních novinkách v AI a technologiích.</p>
-                <div class="video-detail">V tomto videu se dozvíte o nejnovějších AI novinkách. Video obsahuje informace o nových modelech, nástrojích a technologiích.</div>
             </div>
         </div>
     </div>
 
     <div class="video-card">
-        <div class="video-container">
-            <a href="https://www.youtube.com/watch?v=foXDDxSbZ7k" class="video-thumb" target="_blank">
-                <img src="https://img.youtube.com/vi/foXDDxSbZ7k/hqdefault.jpg" alt="NEW Claude Code Update is INSANE!" loading="lazy">
-            </a>
-            <div class="video-info">
-                <h3 class="video-title">NEW Claude Code Update is INSANE!</h3>
-                <div class="video-meta">
-                    <span class="video-age">20.03.2026</span>
-                    <span>⏱ 09:30</span>
+        <div class="video-thumb">📺</div>
+        <div class="video-info">
+            <h3 class="video-title">NEW Claude Code Update is INSANE!</h3>
+            <div class="video-meta">
+                <span>📅 20.03.2026</span>
+                <span>⏱ 09:30</span>
+            </div>
+            <div class="video-summary">
+                <p>Video o hlavních novinkách v AI a technologiích. Klikněte na 'Zobrazit podrobnosti' pro více informací.</p>
+                <button class="toggle-btn" onclick="toggleDetail(this)">📖 Zobrazit podrobnosti</button>
+                <div class="video-detail">
+                    <p><strong>Video ID:</strong> foXDDxSbZ7k</p>
+                    <p><strong>Délka:</strong> 09:30</p>
+                    <p><strong>Publikováno:</strong> 20.03.2026</p>
+                    <p><strong>URL:</strong> <a href="https://www.youtube.com/watch?v=foXDDxSbZ7k" target="_blank" style="color: #2563eb;">YouTube</a></p>
                 </div>
-        <div class="video-container">
-            <a href="https://www.youtube.com/watch?v=foXDDxSbZ7k" class="video-thumb" target="_blank">
-                <img src="https://img.youtube.com/vi/foXDDxSbZ7k/hqdefault.jpg" alt="NEW Claude Code Update is INSANE!" loading="lazy">
-            </a>
-            <div class="video-info">
-                <h3 class="video-title">NEW Claude Code Update is INSANE!</h3>
-                <div class="video-meta">
-                    <span class="video-age">20.03.2026</span>
-                    <span>⏱ 09:30</span>
-                </div>
-                <p class="video-summary">Video o hlavních novinkách v AI a technologiích.</p>
-                <div class="video-detail">V tomto videu se dozvíte o nejnovějších AI novinkách. Video obsahuje informace o nových modelech, nástrojích a technologiích.</div>
             </div>
         </div>
     </div>
 
     <div class="video-card">
-        <div class="video-container">
-            <a href="https://www.youtube.com/watch?v=7Ijaf2HFvjg" class="video-thumb" target="_blank">
-                <img src="https://img.youtube.com/vi/7Ijaf2HFvjg/hqdefault.jpg" alt="After the Storm: Public Safety, Project Alpha & AI | March 20, 2026" loading="lazy">
-            </a>
-            <div class="video-info">
-                <h3 class="video-title">After the Storm: Public Safety, Project Alpha & AI | March 20, 2026</h3>
-                <div class="video-meta">
-                    <span class="video-age">20.03.2026</span>
-                    <span>⏱ 33:14</span>
+        <div class="video-thumb">📺</div>
+        <div class="video-info">
+            <h3 class="video-title">After the Storm: Public Safety, Project Alpha & AI | March 20, 2026</h3>
+            <div class="video-meta">
+                <span>📅 20.03.2026</span>
+                <span>⏱ 33:14</span>
+            </div>
+            <div class="video-summary">
+                <p>Video o hlavních novinkách v AI a technologiích. Klikněte na 'Zobrazit podrobnosti' pro více informací.</p>
+                <button class="toggle-btn" onclick="toggleDetail(this)">📖 Zobrazit podrobnosti</button>
+                <div class="video-detail">
+                    <p><strong>Video ID:</strong> 7Ijaf2HFvjg</p>
+                    <p><strong>Délka:</strong> 33:14</p>
+                    <p><strong>Publikováno:</strong> 20.03.2026</p>
+                    <p><strong>URL:</strong> <a href="https://www.youtube.com/watch?v=7Ijaf2HFvjg" target="_blank" style="color: #2563eb;">YouTube</a></p>
                 </div>
-        <div class="video-container">
-            <a href="https://www.youtube.com/watch?v=7Ijaf2HFvjg" class="video-thumb" target="_blank">
-                <img src="https://img.youtube.com/vi/7Ijaf2HFvjg/hqdefault.jpg" alt="After the Storm: Public Safety, Project Alpha & AI | March 20, 2026" loading="lazy">
-            </a>
-            <div class="video-info">
-                <h3 class="video-title">After the Storm: Public Safety, Project Alpha & AI | March 20, 2026</h3>
-                <div class="video-meta">
-                    <span class="video-age">20.03.2026</span>
-                    <span>⏱ 33:14</span>
-                </div>
-                <p class="video-summary">Video o hlavních novinkách v AI a technologiích.</p>
-                <div class="video-detail">V tomto videu se dozvíte o nejnovějších AI novinkách. Video obsahuje informace o nových modelech, nástrojích a technologiích.</div>
             </div>
         </div>
     </div>
 
+    <div class="video-card">
+        <div class="video-thumb">📺</div>
+        <div class="video-info">
+            <h3 class="video-title">Nvidia's New NemoClaw + OpenClaw Update Free!</h3>
+            <div class="video-meta">
+                <span>📅 19.03.2026</span>
+                <span>⏱ 07:16</span>
+            </div>
+            <div class="video-summary">
+                <p>Video o hlavních novinkách v AI a technologiích. Klikněte na 'Zobrazit podrobnosti' pro více informací.</p>
+                <button class="toggle-btn" onclick="toggleDetail(this)">📖 Zobrazit podrobnosti</button>
+                <div class="video-detail">
+                    <p><strong>Video ID:</strong> vabRab9F0w4</p>
+                    <p><strong>Délka:</strong> 07:16</p>
+                    <p><strong>Publikováno:</strong> 19.03.2026</p>
+                    <p><strong>URL:</strong> <a href="https://www.youtube.com/watch?v=vabRab9F0w4" target="_blank" style="color: #2563eb;">YouTube</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="video-card">
+        <div class="video-thumb">📺</div>
+        <div class="video-info">
+            <h3 class="video-title">NEW Manus AI Computer Update is INSANE! 🤯</h3>
+            <div class="video-meta">
+                <span>📅 19.03.2026</span>
+                <span>⏱ 08:05</span>
+            </div>
+            <div class="video-summary">
+                <p>Video o hlavních novinkách v AI a technologiích. Klikněte na 'Zobrazit podrobnosti' pro více informací.</p>
+                <button class="toggle-btn" onclick="toggleDetail(this)">📖 Zobrazit podrobnosti</button>
+                <div class="video-detail">
+                    <p><strong>Video ID:</strong> SWIk9g6-zBM</p>
+                    <p><strong>Délka:</strong> 08:05</p>
+                    <p><strong>Publikováno:</strong> 19.03.2026</p>
+                    <p><strong>URL:</strong> <a href="https://www.youtube.com/watch?v=SWIk9g6-zBM" target="_blank" style="color: #2563eb;">YouTube</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="video-card">
+        <div class="video-thumb">📺</div>
+        <div class="video-info">
+            <h3 class="video-title">New OpenClaw + Minimax M 2.7 + OpenClaw + Ollama Update!</h3>
+            <div class="video-meta">
+                <span>📅 19.03.2026</span>
+                <span>⏱ 07:25</span>
+            </div>
+            <div class="video-summary">
+                <p>Video o hlavních novinkách v AI a technologiích. Klikněte na 'Zobrazit podrobnosti' pro více informací.</p>
+                <button class="toggle-btn" onclick="toggleDetail(this)">📖 Zobrazit podrobnosti</button>
+                <div class="video-detail">
+                    <p><strong>Video ID:</strong> 7Ju87DdiE0Y</p>
+                    <p><strong>Délka:</strong> 07:25</p>
+                    <p><strong>Publikováno:</strong> 19.03.2026</p>
+                    <p><strong>URL:</strong> <a href="https://www.youtube.com/watch?v=7Ju87DdiE0Y" target="_blank" style="color: #2563eb;">YouTube</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="video-card">
+        <div class="video-thumb">📺</div>
+        <div class="video-info">
+            <h3 class="video-title">Nvidia's New FREE NemoClaw + OpenClaw Update!</h3>
+            <div class="video-meta">
+                <span>📅 18.03.2026</span>
+                <span>⏱ 07:59</span>
+            </div>
+            <div class="video-summary">
+                <p>Video o hlavních novinkách v AI a technologiích. Klikněte na 'Zobrazit podrobnosti' pro více informací.</p>
+                <button class="toggle-btn" onclick="toggleDetail(this)">📖 Zobrazit podrobnosti</button>
+                <div class="video-detail">
+                    <p><strong>Video ID:</strong> t700StIhtZo</p>
+                    <p><strong>Délka:</strong> 07:59</p>
+                    <p><strong>Publikováno:</strong> 18.03.2026</p>
+                    <p><strong>URL:</strong> <a href="https://www.youtube.com/watch?v=t700StIhtZo" target="_blank" style="color: #2563eb;">YouTube</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="video-card">
+        <div class="video-thumb">📺</div>
+        <div class="video-info">
+            <h3 class="video-title">AI Breakthroughs March 2026 🚀 Exciting Innovations Unveiled!</h3>
+            <div class="video-meta">
+                <span>📅 14.03.2026</span>
+                <span>⏱ 01:35</span>
+            </div>
+            <div class="video-summary">
+                <p>Video o hlavních novinkách v AI a technologiích. Klikněte na 'Zobrazit podrobnosti' pro více informací.</p>
+                <button class="toggle-btn" onclick="toggleDetail(this)">📖 Zobrazit podrobnosti</button>
+                <div class="video-detail">
+                    <p><strong>Video ID:</strong> a_8PPgYPpaQ</p>
+                    <p><strong>Délka:</strong> 01:35</p>
+                    <p><strong>Publikováno:</strong> 14.03.2026</p>
+                    <p><strong>URL:</strong> <a href="https://www.youtube.com/watch?v=a_8PPgYPpaQ" target="_blank" style="color: #2563eb;">YouTube</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div>
+    
+    <footer>
+        <p>Automaticky generováno OpenClaw agentem | Poznámka: Podrobná AI shrnutí budou přidána po obnovení Google API limitu (zítra ráno).</p>
+    </footer>
+    
+    <script>
+        function toggleDetail(btn) {
+            const detail = btn.nextElementSibling;
+            detail.classList.toggle("visible");
+            btn.textContent = detail.classList.contains("visible") ? "📬 Skrýt podrobnosti" : "📖 Zobrazit podrobnosti";
+        }
+    </script>
+</body>
+</html>
