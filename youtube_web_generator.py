@@ -23,6 +23,7 @@ from pathlib import Path
 # === CONFIG ===
 GEMINI_URL = os.environ.get("GEMINI_URL", "http://127.0.0.1:4000/v1/chat/completions")
 GEMINI_MODEL = "gemini-3.1-flash-lite-preview"
+FALLBACK_MODEL = "xiaomi/mimo-v2-flash"
 YOUTUBE_CHANNEL = "https://www.youtube.com/@JulianGoldieSEO/videos"
 REPO_DIR = os.path.dirname(os.path.abspath(__file__))
 DAYS_BACK = int(os.environ.get("DAYS_BACK", "1"))
@@ -241,13 +242,18 @@ def clean_vtt(vtt_content):
 import time as _time
 
 def gemini_call(prompt, max_tokens=300, temperature=0.3, retries=3):
+    # Stop sequences to prevent repetitive loops
+    stop_seqs = ["\n\n\n", "---", "Note:", "Disclaimer:"]
+    
     payload = {
         "model": GEMINI_MODEL,
         "messages": [{"role": "user", "content": prompt}],
         "max_tokens": max_tokens,
-        "temperature": temperature
+        "temperature": temperature,
+        "stop": stop_seqs
     }
     
+    last_429 = False
     for attempt in range(retries):
         try:
             resp = requests.post(
@@ -259,17 +265,46 @@ def gemini_call(prompt, max_tokens=300, temperature=0.3, retries=3):
             
             if resp.status_code == 200:
                 data = resp.json()
-                return data["choices"][0]["message"]["content"].strip()
+                result = data["choices"][0]["message"]["content"].strip()
+                # Anti-loop: detect repetitive output
+                sentences = result.split(". ")
+                if len(sentences) > 4:
+                    unique = set(s.strip().lower() for s in sentences if s.strip())
+                    if len(unique) < len(sentences) * 0.5:
+                        log("  ⚠️ Repetitive output detected, trimming")
+                        result = ". ".join(sentences[:len(sentences)//2]) + "."
+                return result
             elif resp.status_code == 429:
                 wait = 65
                 log(f"  ⏳ Rate limited, waiting {wait}s (attempt {attempt+1}/{retries})")
+                last_429 = True
                 _time.sleep(wait)
             else:
-                log(f"  Gemini API error {resp.status_code} (attempt {attempt+1})")
+                log(f"  API error {resp.status_code} (attempt {attempt+1})")
                 _time.sleep(10)
         except Exception as e:
-            log(f"  Gemini timeout: {str(e)[:60]} (attempt {attempt+1})")
+            log(f"  Timeout: {str(e)[:60]} (attempt {attempt+1})")
             _time.sleep(10)
+    
+    # Fallback to MiMo-V2-Flash after exhausting retries on 429
+    if last_429:
+        log(f"  🔄 Falling back to {FALLBACK_MODEL}...")
+        fallback_payload = dict(payload, model=FALLBACK_MODEL)
+        try:
+            resp = requests.post(
+                GEMINI_URL,
+                headers={"Content-Type": "application/json", "Authorization": "Bearer placeholder"},
+                json=fallback_payload,
+                timeout=120
+            )
+            if resp.status_code == 200:
+                data = resp.json()
+                log(f"  ✅ Fallback succeeded")
+                return data["choices"][0]["message"]["content"].strip()
+            else:
+                log(f"  ❌ Fallback also failed: {resp.status_code}")
+        except Exception as e:
+            log(f"  ❌ Fallback timeout: {str(e)[:60]}")
     
     return None
 
